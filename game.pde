@@ -1,11 +1,11 @@
 class Game {
-    Dino player;
+    Dinosaur player;
     ArrayList<Cactus> cactae;
     ArrayList<Bird> birds;
     float speed = 10; //12
 
     Game(){
-        player = new Dino();
+        player = new Dinosaur();
         cactae = new ArrayList<Cactus>();
         birds = new ArrayList<Bird>();
     }
