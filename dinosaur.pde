@@ -10,6 +10,7 @@ class Dinosaur {
         w=80;
         h=86;
         jumping = false;
+        living = true;
         jump_stage = 0;
         crouching = false;
     }
@@ -36,6 +37,7 @@ class Dinosaur {
 
       void die(){
        living = false;
+      
      }
 
      void stop_jump(){
@@ -45,24 +47,41 @@ class Dinosaur {
      }
 
      void crouch(){
+        if(y<=450){
+        println("IF CROUCH INCIAL "+y);
         crouching = true;
         y += 34;
         w = 110;
         h = 52;
+         println("IF CROUCH FINAL "+y);
+        }
      }
     
     void stop_crouch(){
+       
+       if(y>450){
+        println("STOP CROUCH INCIAL "+y);
         crouching = false;
         y -= 34;
         w = 80;
         h = 86;
+         println("STOP CROUCH FINAL "+y);
+       }
     }
     void display(){
+        if(isAlive()){
+            fill(255);
+        }
+        else{  fill(255,0,0);}
         rect(x, y, w, h);
     }
 
     boolean isJumping(){
         return jumping;
+    }
+
+    boolean isCrouching(){
+        return crouching;
     }
 
      boolean isAlive(){

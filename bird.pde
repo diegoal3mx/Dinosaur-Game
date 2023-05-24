@@ -28,6 +28,7 @@ class Bird{
 
     void display(){
         fill(0,255,0);
+        print(y, "Y DEL PAJARO");
         rect(x,y,w,h);
     }
 }
