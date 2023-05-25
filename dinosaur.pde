@@ -3,6 +3,7 @@ class Dinosaur {
     int w, h;
     boolean jumping, crouching, living;
     float jump_stage;
+    PImage img;
 
     Dinosaur(){
         x=200;
@@ -40,7 +41,7 @@ class Dinosaur {
             stop_crouch();
         }
        living = false;
-      
+       noLoop();
      }
 
      void stop_jump(){
@@ -77,6 +78,7 @@ class Dinosaur {
         }
         else{  fill(255,0,0);}
         rect(x, y, w, h);
+        image(img, x, y, w, h);
     }
 
     boolean isJumping(){

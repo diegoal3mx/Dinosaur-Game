@@ -91,7 +91,6 @@ class Game {
                 if (player.isJumping()){
                     if(p_y+ p_h > c.y){
                        player.die(); safe=false;
-                        speed=0;
                         println("MUERTE 1");
                         println(p_y+" "+p_h+" "+c.y);
                 
@@ -100,7 +99,6 @@ class Game {
                 }
                  else{
                 player.die(); safe=false;
-                speed=0;
                 println("MUERTE 2");
             }
             }
@@ -114,12 +112,15 @@ class Game {
               
                     if(p_y+ p_h > b.y && p_y < b.y +b.h){
                        player.die(); safe=false;
-                        speed=0;
                         println("MUERTE 1 BIRD");
                         println(p_y+" "+p_h+" "+b.y);
             }
             }
         }
+    }
+
+    int getHighScore(){
+        return highScore;
     }
 
     void keyPressed(String key){
