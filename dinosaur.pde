@@ -36,6 +36,9 @@ class Dinosaur {
      }
 
       void die(){
+    if (isCrouching()){
+            stop_crouch();
+        }
        living = false;
       
      }

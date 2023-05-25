@@ -3,7 +3,7 @@ class Game {
     ArrayList<Cactus> cactae;
     ArrayList<Bird> birds;
     float speed = 10; //12
-    float maxSpeed=15;
+    float maxSpeed=20;
     int score=0;
     int highScore=0;
     boolean started=true;
@@ -49,7 +49,7 @@ class Game {
 
          check_collisions();
           if(speed<maxSpeed){
-        speed += 0.1;
+        speed += 0.01;
         }
     }
 
@@ -86,16 +86,12 @@ class Game {
         int p_h = player.h;
 
         for(Cactus c: cactae){
-        //  boolean hits(Player b)
-  //{
-   // return ((b.pos.x > x) && (b.pos.x < (x + wid))) &&  (b.pos.y > (height - bottom - b.r));
- // }
-  //
+
             if(p_x + p_w > c.x && p_x < c.x + c.w){
                 if (player.isJumping()){
                     if(p_y+ p_h > c.y){
-                       // player.die(); safe=false;
-                        //speed=0;
+                       player.die(); safe=false;
+                        speed=0;
                         println("MUERTE 1");
                         println(p_y+" "+p_h+" "+c.y);
                 
@@ -103,13 +99,26 @@ class Game {
                   
                 }
                  else{
-               // player.die(); safe=false;
-               // speed=0;
+                player.die(); safe=false;
+                speed=0;
                 println("MUERTE 2");
             }
             }
             
            
+        }
+
+        for (Bird b: birds){
+             if(p_x + p_w > b.x && p_x < b.x + b.w){
+
+              
+                    if(p_y+ p_h > b.y && p_y < b.y +b.h){
+                       player.die(); safe=false;
+                        speed=0;
+                        println("MUERTE 1 BIRD");
+                        println(p_y+" "+p_h+" "+b.y);
+            }
+            }
         }
     }
 
