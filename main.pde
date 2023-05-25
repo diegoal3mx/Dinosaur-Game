@@ -4,21 +4,19 @@ int every_sec = 0;
 
 void setup(){
     size (1280,720);
-    init();
-    restart();
-    loop();
+    start();
 }
 
-void init(){
+void start(){
     game.player.img= loadImage("imgs/dinoCharacterGame.png");
+    loop();
 }
 
 void restart(){
     int tempScore=game.getHighScore();
     game = new Game();
-    game.player.img= loadImage("imgs/dinoCharacterGame.png");
     game.highScore=tempScore;
-    loop();
+    start();
 }
 
 void draw(){
@@ -43,7 +41,6 @@ void keyPressed(){
        
     }
     else if (key == ' ' && !game.player.isAlive()){
-        print("PresionO");
         restart();
     }
 }
