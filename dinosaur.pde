@@ -37,11 +37,14 @@ class Dinosaur {
      }
 
       void die(){
+        println("Y1 "+y);
     if (isCrouching()){
-            stop_crouch();
-        }
+        println("Y2 "+y);
+            stop_crouch();println("Y3 "+y);
+            x+=30;
+        }println("Y4 "+y);
        living = false;
-       noLoop();
+       noLoop();println("Y5 "+y);
      }
 
      void stop_jump(){

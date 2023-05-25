@@ -97,7 +97,8 @@ class Game {
                     }
                   
                 }
-                 else{
+                 else{ println("X MUERTE ABAJO"+ p_y);
+                 println("Y MUERTE CACTUS "+c.y);
                 player.die(); safe=false;
                 println("MUERTE 2");
             }
