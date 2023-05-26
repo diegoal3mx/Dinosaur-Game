@@ -32,18 +32,28 @@ class Dinosaur {
         }    
         
      }
-     void jump(){
+
+    void jump(){
+
         jumping = true;
      }
 
-      void die(){
-        
-    if (isCrouching()){ 
-            stop_crouch();
-            x+=30;
-        }
-       living = false;
-       noLoop();
+    void die(int... cactus_height){
+
+
+         if (isCrouching()){ 
+             stop_crouch();
+             x+=30;
+            }
+    
+        Integer ch = (cactus_height.length >= 1) ? cactus_height[0] : null;
+
+        if(ch != null){
+           y = ch-(h-5);
+         }
+
+         living = false;
+         noLoop();
      }
 
      void stop_jump(){

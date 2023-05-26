@@ -95,9 +95,7 @@ class Game {
                   
                 }
                 else if (player.isCrouching() && p_y + p_h > c.y && player.isStoppingJumping() ){                             
-                       player.die(); 
-                       player.y = c.y-(player.h-5);
-                       safe= false;               
+                       player.die(c.y);  safe= false;               
                 }
                  else{
                 player.die(); safe=false;
