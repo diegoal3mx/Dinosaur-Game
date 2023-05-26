@@ -88,19 +88,19 @@ class Game {
         for(Cactus c: cactae){
 
             if(p_x + p_w > c.x && p_x < c.x + c.w){
-                if (player.isJumping()){
+                if (player.isJumping() ){
                     if(p_y+ p_h > c.y){
                        player.die(); safe=false;
-                        println("MUERTE 1");
-                        println(p_y+" "+p_h+" "+c.y);
-                
                     }
                   
                 }
-                 else{ println("X MUERTE ABAJO"+ p_y);
-                 println("Y MUERTE CACTUS "+c.y);
+                else if (player.isCrouching() && p_y + p_h > c.y && player.isStoppingJumping() ){                             
+                       player.die(); 
+                       player.y = c.y-(player.h-5);
+                       safe= false;               
+                }
+                 else{
                 player.die(); safe=false;
-                println("MUERTE 2");
             }
             }
             
@@ -135,7 +135,6 @@ class Game {
         else if (key == "DOWN" && player.isAlive()){
             if(player.isJumping()){
                 player.stop_jump();
-                 player.crouch();
             }else{
             player.crouch();
             }

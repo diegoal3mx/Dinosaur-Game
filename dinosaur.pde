@@ -1,7 +1,7 @@
 class Dinosaur {
-    int x, y;
+    int x, y, last_jump_y;
     int w, h;
-    boolean jumping, crouching, living;
+    boolean jumping, crouching, living, stop_jumping;
     float jump_stage;
     PImage img;
 
@@ -37,23 +37,27 @@ class Dinosaur {
      }
 
       void die(){
-        println("Y1 "+y);
-    if (isCrouching()){
-        println("Y2 "+y);
-            stop_crouch();println("Y3 "+y);
+        
+    if (isCrouching()){ 
+            stop_crouch();
             x+=30;
-        }println("Y4 "+y);
+        }
        living = false;
-       noLoop();println("Y5 "+y);
+       noLoop();
      }
 
      void stop_jump(){
+       stop_jumping=true;
         jumping=false;
         jump_stage=0;
         y=450;
+        crouch(true);
      }
 
-     void crouch(){
+     void crouch(boolean... just_stopped_jumping){
+
+        stop_jumping = (just_stopped_jumping.length >= 1) ? just_stopped_jumping[0] : false;
+
         if(y<=450){
         println("IF CROUCH INCIAL "+y);
         crouching = true;
@@ -86,6 +90,10 @@ class Dinosaur {
 
     boolean isJumping(){
         return jumping;
+    }
+
+     boolean isStoppingJumping(){
+        return stop_jumping;
     }
 
     boolean isCrouching(){
