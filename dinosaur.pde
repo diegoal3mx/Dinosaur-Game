@@ -24,6 +24,8 @@ class Dinosaur {
         if(jumping){
             y=448-(int)f(jump_stage);
             jump_stage += 0.03;
+            last_jump_y = y;
+         
             if(jump_stage>1){
                 jumping = false;
                 jump_stage=0;
@@ -38,18 +40,21 @@ class Dinosaur {
         jumping = true;
      }
 
-    void die(int... cactus_height){
+    void die(int... enemy_height){
 
-
-         if (isCrouching()){ 
+        if(isCrouching() && isStoppingJumping()){
+            stop_crouch();
+            println("NO ESTIRAR +30 MASTER"); //CHECAR ESTO CUANDO NO SE PASA ABAJO PORQUE NO ACTUALIZA
+        }
+         else if (isCrouching()){ 
              stop_crouch();
              x+=30;
             }
     
-        Integer ch = (cactus_height.length >= 1) ? cactus_height[0] : null;
+        Integer eh = (enemy_height.length >= 1) ? enemy_height[0] : null;
 
-        if(ch != null){
-           y = ch-(h-5);
+        if(eh != null){
+           y = eh-(h-5);
          }
 
          living = false;
@@ -57,7 +62,6 @@ class Dinosaur {
      }
 
      void stop_jump(){
-       stop_jumping=true;
         jumping=false;
         jump_stage=0;
         y=450;
@@ -70,7 +74,7 @@ class Dinosaur {
 
         if(y<=450){
         println("IF CROUCH INCIAL "+y);
-        crouching = true;
+        crouching = true; 
         y += 34;
         w = 110;
         h = 52;

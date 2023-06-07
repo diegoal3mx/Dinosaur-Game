@@ -22,7 +22,8 @@ void restart(){
 void draw(){
     background(255);
     game.update();
-    game.display();
+    game.display(); 
+    game.despawn_enemy();
     if(millis() - every_sec > 1000){
         every_sec = millis();
         game.spawn_enemy();
