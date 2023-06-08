@@ -1,11 +1,13 @@
 class Bird{
 
     int x, y, w, h;
+    PImage img;
 
     Bird(){
         x=1350;
         w= 84;
         h=40;
+        img= loadImage("imgs/bird.png");
         int type = (int)random(4);
 
         switch (type) {
@@ -30,8 +32,9 @@ class Bird{
     }
 
     void display(){
-        fill(0,255,0);
+        fill(255,255,255);
        // print(y, "Y DEL PAJARO");
         rect(x,y,w,h);
+        image(img, x, y, w, h);
     }
 }

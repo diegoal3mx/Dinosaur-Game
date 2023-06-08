@@ -1,6 +1,7 @@
 class Cactus{
 
     int x, y, w, h;
+    PImage img;
 
     Cactus(){
         x=1350;

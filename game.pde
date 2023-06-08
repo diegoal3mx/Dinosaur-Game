@@ -4,7 +4,7 @@ class Game {
     Dinosaur player;
     ArrayList<Cactus> cactae;
     ArrayList<Bird> birds;
-    float speed = 10; //12
+    float speed = 12; 
     float maxSpeed=20;
     int score=0;
     int highScore=0;
@@ -40,20 +40,13 @@ class Game {
         text(score,width/2,50);
         text("Score",width/2-100,50);
 
-    
-        //Set and display high score
         if(highScore < score)
         {
         highScore = score;
          }
     
          text(highScore,width/2+310,50);
-        text("High Score",width/2+300-170,50);
-        for (int i=0; i<600;i+=25){
-             text("X "+i,i,430);
-        }
-         //text("x200",200,400);
-
+         text("High Score",width/2+300-170,50);
          check_collisions();
           if(speed<maxSpeed){
         speed += 0.01;
@@ -98,7 +91,6 @@ class Game {
            Bird b = iterator.next();
              if(b.x<0) {
              iterator.remove();
-            // println("AHORA HAY "+birds.size()+ " PAJAROS");
          }
         }
 
@@ -130,7 +122,7 @@ class Game {
             
            
         }
-       
+
         if(player.isJumping()){
             for (int i = 0; i<birds.size(); i++){
             if(birds.get(0).x+birds.get(0).w<200 && birds.size()>1){
@@ -144,21 +136,28 @@ class Game {
 
 
         for (Bird b: birds){
-        
-             if(p_x + p_w > b.x && p_x < b.x + b.w){
+       
+            if(p_x + p_w > b.x && p_x < b.x + b.w){
+               
+                  if(player.isCrouching() && player.isStoppingJumping() && player.last_jump_y < b.y  && (p_x-30)+p_w>last_bird_x ){ 
 
-                  if(player.isCrouching() && player.isStoppingJumping() && player.last_jump_y < b.y  && (p_x-30)+p_w>last_bird_x && (p_x-30)+p_w>b.x+b.w){ //py>by+bh
-                   
-                    player.die(b.y); safe=false;
-                }
-                    else if(p_y+ p_h > b.y && p_y < b.y +b.h){
+                         if(p_x>b.x && (p_x-30)+p_w>b.x+b.w){
+                             player.die(b.y); safe=false;
+                        
+                             }
+                             
+                         else if(p_x<b.x && (p_x-30)+p_w<b.x+b.w){
+                             player.die(b.y); safe=false;
+                          
+                             }
+                    
+                    } 
+
+                    else if(p_y+ p_h > b.y && p_y < b.y +b.h){                  
+                       player.stop_jumping = false;                 
                        player.die(); safe=false;
-                     //   println("MUERTE 1 BIRD");
-                     //   println(p_y+" "+p_h+" "+b.y);
-                     }
-                
-           
-            }
+                     }                  
+             }
         }
     }
 
@@ -170,22 +169,22 @@ class Game {
         if (key == "UP" && player.isAlive()){
             if (!player.isCrouching()){
                  player.stop_crouch();
-                 player.jump();
+                 player.jump();  
             }
            
         }
         else if (key == "DOWN" && player.isAlive()){
             if(player.isJumping()){
-                player.stop_jump();
+                player.stop_jump();  
             }else{
-            player.crouch();
+            player.crouch();  
             }
         }
     }
 
     void keyReleased(String key){
-        if (key == "DOWN"){
-            player.stop_crouch();
+        if (key == "DOWN" && player.isAlive()){
+            player.stop_crouch(); 
     }
     } 
 }
