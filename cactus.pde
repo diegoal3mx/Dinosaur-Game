@@ -33,8 +33,6 @@ class Cactus{
             case 5:
                 w = 146;
                 break;
-
-
         }
     }
 

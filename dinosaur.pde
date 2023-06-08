@@ -46,9 +46,9 @@ class Dinosaur {
         if(isCrouching() && isStoppingJumping()){
             stop_crouch();
         }
-         else if (isCrouching()){  
-             stop_crouch();
-             x+=30;  
+        else if (isCrouching()){  
+            stop_crouch();
+            x+=30;  
             }
     
         Integer eh = (enemy_height.length >= 1) ? enemy_height[0] : null;

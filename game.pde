@@ -19,7 +19,7 @@ class Game {
 
     void update(){
 
-        if(player.isAlive() && started==true){
+        if(player.isAlive() && started){
             score++;
             player.update();
            
@@ -76,26 +76,25 @@ class Game {
             birds.add(new Bird());
         }
         else{
-        cactae.add(new Cactus());
+            cactae.add(new Cactus());
         }
     }
 
-     void despawn_enemy(){
+    void despawn_enemy(){
         for (Iterator<Cactus> iterator = cactae.iterator(); iterator.hasNext();) {
             Cactus c = iterator.next();
-             if(c.x<0) {
-             iterator.remove();
-         }
+            if(c.x<0) {
+                iterator.remove();
+             }
         }
+
         for (Iterator<Bird> iterator = birds.iterator(); iterator.hasNext();) {
-           Bird b = iterator.next();
-             if(b.x<0) {
-             iterator.remove();
-         }
+            Bird b = iterator.next();
+            if(b.x<0) {
+                iterator.remove();
+            }
         }
-
     }
-
 
     void check_collisions(){
         int p_x = player.x;
@@ -133,7 +132,6 @@ class Game {
                  }
              }
          }
-
 
         for (Bird b: birds){
        

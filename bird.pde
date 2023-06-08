@@ -23,7 +23,6 @@ class Bird{
             case 3:
              y = (int) random (100,390);
                  break;
-
         }
     }
 
