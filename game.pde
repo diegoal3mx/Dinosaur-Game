@@ -9,7 +9,6 @@ class Game {
     int score=0;
     int highScore=0;
     boolean started=true;
-    boolean safe=true;
     float last_bird_x = 1350;
 
     Game(){
@@ -19,7 +18,8 @@ class Game {
     }
 
     void update(){
-        if(player.isAlive() && safe==true && started==true){
+
+        if(player.isAlive() && started==true){
             score++;
             player.update();
            
@@ -28,28 +28,29 @@ class Game {
              text("CLICK TO START",width/2-500,50);
              print("CLICK");
              started=false; 
-             safe=true;
         }
+
         for (Cactus c: cactae){
             c.update((int)speed);
         }
-         for (Bird b: birds){
+
+        for (Bird b: birds){
             b.update((int)speed);
         }
 
         text(score,width/2,50);
         text("Score",width/2-100,50);
 
-        if(highScore < score)
-        {
-        highScore = score;
-         }
+        if(highScore < score){
+            highScore = score;
+        }
     
-         text(highScore,width/2+310,50);
-         text("High Score",width/2+300-170,50);
-         check_collisions();
-          if(speed<maxSpeed){
-        speed += 0.01;
+        text(highScore,width/2+310,50);
+        text("High Score",width/2+300-170,50);
+        check_collisions();
+
+        if(speed<maxSpeed){
+            speed += 0.01;
         }
     }
 
@@ -61,14 +62,13 @@ class Game {
         noStroke();
         player.display();
 
-         for (Cactus c: cactae){
+        for (Cactus c: cactae){
             c.display();
         }
-         for (Bird b: birds){
-            b.display();
-    
-        }
-       
+
+        for (Bird b: birds){
+            b.display();    
+        }      
     }
 
     void spawn_enemy(){
@@ -106,31 +106,31 @@ class Game {
         for(Cactus c: cactae){
 
             if(p_x + p_w > c.x && p_x < c.x + c.w){
+
                 if (player.isJumping() ){
                     if(p_y+ p_h > c.y){
-                       player.die(); safe=false;
-                    }
-                  
+                       player.die(); 
+                    }                  
                 }
                 else if (player.isCrouching() && p_y + p_h > c.y && player.isStoppingJumping() ){                             
-                       player.die(c.y);  safe= false;               
+                     player.die(c.y);               
                 }
-                 else{
-                player.die(); safe=false;
+                else{
+                     player.die(); 
+                }
+
             }
-            }
-            
-           
+                      
         }
 
         if(player.isJumping()){
             for (int i = 0; i<birds.size(); i++){
-            if(birds.get(0).x+birds.get(0).w<200 && birds.size()>1){
-                last_bird_x = birds.get(1).x;
-            }
-            else{
-                last_bird_x = birds.get(0).x;
-            }
+                if(birds.get(0).x+birds.get(0).w<200 && birds.size()>1){
+                    last_bird_x = birds.get(1).x;
+                 }
+                else{
+                     last_bird_x = birds.get(0).x;
+                 }
              }
          }
 
@@ -142,20 +142,18 @@ class Game {
                   if(player.isCrouching() && player.isStoppingJumping() && player.last_jump_y < b.y  && (p_x-30)+p_w>last_bird_x ){ 
 
                          if(p_x>b.x && (p_x-30)+p_w>b.x+b.w){
-                             player.die(b.y); safe=false;
-                        
+                             player.die(b.y);                       
                              }
-                             
+
                          else if(p_x<b.x && (p_x-30)+p_w<b.x+b.w){
-                             player.die(b.y); safe=false;
-                          
+                             player.die(b.y);                          
                              }
                     
                     } 
 
                     else if(p_y+ p_h > b.y && p_y < b.y +b.h){                  
                        player.stop_jumping = false;                 
-                       player.die(); safe=false;
+                       player.die(); 
                      }                  
              }
         }
@@ -177,7 +175,7 @@ class Game {
             if(player.isJumping()){
                 player.stop_jump();  
             }else{
-            player.crouch();  
+                player.crouch();  
             }
         }
     }
@@ -185,6 +183,6 @@ class Game {
     void keyReleased(String key){
         if (key == "DOWN" && player.isAlive()){
             player.stop_crouch(); 
-    }
+        }
     } 
 }
