@@ -31,7 +31,7 @@ class Bird{
     }
 
     void display(){
-        fill(255,255,255);
+        fill(0,0,255);
         rect(x,y,w,h);
         image(img, x, y, w, h);
     }

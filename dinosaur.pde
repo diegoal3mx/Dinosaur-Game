@@ -44,10 +44,10 @@ class Dinosaur {
     void die(int... enemy_height){
  
         if(isCrouching() && isStoppingJumping()){
-            stop_crouch();
+            stop_crouch(); 
         }
         else if (isCrouching()){  
-            stop_crouch();
+            stop_crouch(); 
             x+=30;  
             }
     

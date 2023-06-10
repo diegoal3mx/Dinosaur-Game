@@ -8,10 +8,11 @@ class Game {
     float maxSpeed=20;
     int score=0;
     int highScore=0;
-    boolean started=true;
+    boolean started=false;
     float last_bird_x = 1350;
 
-    Game(){
+    Game(boolean start){
+        started=start;
         player = new Dinosaur();
         cactae = new ArrayList<Cactus>();
         birds = new ArrayList<Bird>();
@@ -22,13 +23,6 @@ class Game {
         if(player.isAlive() && started){
             score++;
             player.update();
-           
-        }
-        else{
-             text("CLICK TO START",width/2-500,50);
-             print("CLICK");
-             started=false; 
-        }
 
         for (Cactus c: cactae){
             c.update((int)speed);
@@ -38,19 +32,28 @@ class Game {
             b.update((int)speed);
         }
 
-        text(score,width/2,50);
-        text("Score",width/2-100,50);
+        fill(32, 33, 36); 
+        text(score,width/2+200,50);
+        text("Score",width/2+100,50);
 
         if(highScore < score){
             highScore = score;
         }
     
-        text(highScore,width/2+310,50);
-        text("High Score",width/2+300-170,50);
+        text(highScore,width/2+460,50);
+        text("High Score",width/2+280,50);
+
         check_collisions();
 
         if(speed<maxSpeed){
-            speed += 0.01;
+            speed += 0.001;
+        }
+        }
+        else{
+             textSize(32);
+             fill(32, 33, 36); 
+             text("Presiona la barra espaciadora para jugar",width/2-435,585);
+             started=false; 
         }
     }
 
@@ -72,7 +75,7 @@ class Game {
     }
 
     void spawn_enemy(){
-        if((int) random (1)==0){
+        if((int) random (10)==0){
             birds.add(new Bird());
         }
         else{
@@ -104,18 +107,24 @@ class Game {
 
         for(Cactus c: cactae){
 
-            if(p_x + p_w > c.x && p_x < c.x + c.w){
-
+            if(p_x + p_w > c.x && p_x < c.x + c.w){  
                 if (player.isJumping() ){
                     if(p_y+ p_h > c.y){
                        player.die(); 
                     }                  
                 }
-                else if (player.isCrouching() && p_y + p_h > c.y && player.isStoppingJumping() ){                             
-                     player.die(c.y);               
-                }
-                else{
-                     player.die(); 
+                else if (player.isCrouching() && p_y + p_h > c.y && player.isStoppingJumping() && (p_x-30)+p_w > c.x ){ 
+                    if(p_x>c.x && (p_x-30)+p_w>c.x+c.w){
+                        player.die(c.y);                       
+                    }
+
+                    else if(p_x<c.x && (p_x-30)+p_w<c.x+c.w){ 
+                        player.die(c.y);                        
+                    }          
+                }   
+                else{  
+                    player.stop_jumping = false;   
+                    player.die(); 
                 }
 
             }
@@ -139,7 +148,7 @@ class Game {
                
                   if(player.isCrouching() && player.isStoppingJumping() && player.last_jump_y < b.y  && (p_x-30)+p_w>last_bird_x ){ 
 
-                         if(p_x>b.x && (p_x-30)+p_w>b.x+b.w){
+                         if(p_x>b.x && (p_x-30)+p_w>b.x+b.w){ 
                              player.die(b.y);                       
                              }
 
