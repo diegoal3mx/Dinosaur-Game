@@ -6,7 +6,7 @@ class Game {
     ArrayList<Bird> birds;
     float speed = 12; 
     float maxSpeed=20;
-    int score=0;
+    float score=0;
     int highScore=0;
     boolean started=false;
     float last_bird_x = 1350;
@@ -21,7 +21,7 @@ class Game {
     void update(){
 
         if(player.isAlive() && started){
-            score++;
+            score += 1*(speed/70);
             player.update();
 
         for (Cactus c: cactae){
@@ -33,11 +33,11 @@ class Game {
         }
 
         fill(32, 33, 36); 
-        text(score,width/2+200,50);
+        text((int)score,width/2+200,50);
         text("Score",width/2+100,50);
 
         if(highScore < score){
-            highScore = score;
+            highScore = (int)score;
         }
     
         text(highScore,width/2+460,50);
