@@ -8,7 +8,8 @@ void setup(){
 }
 
 void start(){
-    game.player.img= loadImage("imgs/dinoCharacterGame.png");
+    game.player.sprite =  loadImage("imgs/dinosaur-sprite.png");
+    game.player.img =  game.player.sprite.get(848, 2, 44, 47);
     loop();
 }
 

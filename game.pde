@@ -75,7 +75,7 @@ class Game {
     }
 
     void spawn_enemy(){
-        if((int) random (10)==0){
+        if((int) random (1)==0){
             birds.add(new Bird());
         }
         else{

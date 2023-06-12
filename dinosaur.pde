@@ -4,6 +4,7 @@ class Dinosaur {
     boolean jumping, crouching, living, stop_jumping;
     float jump_stage;
     PImage img;
+    PImage sprite;
     PImage crouching_img;
 
     Dinosaur(){
@@ -58,6 +59,7 @@ class Dinosaur {
          }
        
          living = false;
+         img = sprite.get(1068, 2, 44, 47);
          noLoop();
      }
 
@@ -77,6 +79,7 @@ class Dinosaur {
         y += 34;
         w = 110;
         h = 52;
+        img = sprite.get(1112, 19, 59, 30);
         }
      }
     
@@ -88,13 +91,11 @@ class Dinosaur {
         y -= 34;
         w = 80;
         h = 86;
+        img = sprite.get(848, 2, 44, 47);
        }
     }
     void display(){
-        if(isAlive()){
-            fill(255);
-        }
-        else{  fill(255,0,0);}
+        noFill();
         rect(x, y, w, h);
         image(img, x, y, w, h);
     }
