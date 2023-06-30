@@ -19,10 +19,13 @@ class Game {
     }
 
     void update(){
-
         if(player.isAlive() && started){
             score += 1*(speed/70);
             player.update();
+            
+        if(player.will_die){
+            player.die();
+        }
 
         for (Cactus c: cactae){
             c.update((int)speed);
@@ -120,19 +123,20 @@ class Game {
 
         for(Cactus c: cactae){
 
-            if(p_x + p_w > c.x && p_x < c.x + c.w){  
+            if(p_x + p_w > c.x && p_x < c.x + c.w){
+                
                 if (player.isJumping() ){
                     if(p_y+ p_h > c.y){
                        player.die(); 
                     }                  
                 }
                 else if (player.isCrouching() && p_y + p_h > c.y && player.isStoppingJumping() && (p_x-30)+p_w > c.x ){ 
-                    if(p_x>c.x && (p_x-30)+p_w>c.x+c.w){ player.img=player.img_die;
-                        player.die(c.y);     println("M2");                   
+                    if(p_x>c.x && (p_x-30)+p_w>c.x+c.w){ 
+                        player.die(c.y);                        
                     }
 
-                    else if(p_x<c.x && (p_x-30)+p_w<c.x+c.w){ player.img=player.img_die;
-                        player.die(c.y);  println("M3");                           
+                    else if(p_x<c.x && (p_x-30)+p_w<c.x+c.w){ 
+                        player.die(c.y);                           
                     }          
                 }   
                 else{  
@@ -192,10 +196,10 @@ class Game {
            
         }
         else if (key == "DOWN" && player.isAlive()){
+            player.will_die = false;
             if(player.isJumping()){
-                player.stop_jump(); 
-                game.check_collisions();
-                player.updateCrouchingImage();
+                player.stop_jumping = true;
+                check_collisions_crouch();
             }else{
                 player.crouch();  
             }
@@ -207,4 +211,19 @@ class Game {
             player.stop_crouch(); 
         }
     } 
+    void check_collisions_crouch(){
+        int c_y = 0;
+        for(Cactus c: cactae){       
+            if(player.x + player.w > c.x && player.x < c.x + c.w){
+                player.will_die=true;
+                c_y=c.y;
+            }   
+        }
+        if(player.will_die){
+            player.stop_jump(c_y); 
+        } 
+        else{
+            player.stop_jump();
+        }         
+        }
 }

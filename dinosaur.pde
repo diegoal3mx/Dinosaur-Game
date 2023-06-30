@@ -1,6 +1,6 @@
 class Dinosaur {
     int x, w, y, h, last_jump_y, img_index, img_crouching_index;
-    boolean jumping, crouching, living, stop_jumping;
+    boolean jumping, crouching, living, stop_jumping, will_die;
     float jump_stage;
     PImage sprite, img, img_running_1, img_running_2, img_running_3, img_crouching_1, img_crouching_2, img_die;
     PImage [] imgs = new PImage[3];
@@ -22,7 +22,7 @@ class Dinosaur {
     }
 
     void update(){ 
-        if(jumping){ println("IM2");
+        if(jumping){ 
             y=448-(int)f(jump_stage);
             jump_stage += 0.03;
             last_jump_y = y;
@@ -34,12 +34,12 @@ class Dinosaur {
                 y=450;
             }
         }
-        else if(crouching){  println("IM3 "+ living);
-            if(frameCount%10==0){
+        else if(crouching){  
+            if(frameCount%10==0 && !will_die){
                 img=crouching_imgs[img_crouching_index ^= 1];
             }
         }
-        else{ println("IM4");
+        else{ 
             if(frameCount%10==0){
                 img_index++;
                 if(img_index==3){
@@ -55,7 +55,9 @@ class Dinosaur {
         jumping = true;
      }
 
-    void die(int... enemy_height){
+    void die(int... enemy_height){ 
+        living = false;
+        img=img_die;
         
         if(isCrouching() && isStoppingJumping()){
             stop_crouch(); 
@@ -67,53 +69,67 @@ class Dinosaur {
     
         Integer eh = (enemy_height.length >= 1) ? enemy_height[0] : null;
          
-        if(eh != null){
-           y = eh-(h-5);
+        if(eh != null){ 
+           y = eh-(h-5); 
         }
        
-        living = false;
-        img=img_die;
         noLoop();
      }
 
-     void stop_jump(){
+     void stop_jump(int... stop_jump_enemy_height){
+
+        Integer eh = (stop_jump_enemy_height.length >= 1) ? stop_jump_enemy_height[0] : null;
+         
+        if(eh != null){
+           y = eh-(h-5);
+        }
+        else{
+            y=450;
+        }
+
         jumping=false;
         jump_stage=0;
-        y=450;
-        crouch(true);
+        crouch();
      }
 
-     void crouch(boolean... just_stopped_jumping){
-       
-        stop_jumping = (just_stopped_jumping.length >= 1) ? just_stopped_jumping[0] : false;
+     void crouch(){
         
-        if(y<=450){
+        if(y<=450 && !will_die){
         crouching = true; 
         y += 34;
         w = 110;
         h = 52;
+        }
+        else if (y<=450){
+            crouching = true;
         }
 
         updateCrouchingImage();
 
      }
     
-    void updateCrouchingImage(){
-        if(isAlive()){
-        img=crouching_imgs[img_crouching_index];}else{img=img_die;}
+    void updateCrouchingImage(){ 
+        if(will_die){ 
+            img=img_die;
+        }
+        else{ 
+            img=crouching_imgs[img_crouching_index];
+        }
      }
 
     void stop_crouch(){
        
        if(y>450){
         crouching = false;  
-        stop_jumping = false;
-        y -= 34;
+        stop_jumping = false; 
+        y -= 34;  
         w = 80;
         h = 86;
        }
        
+       if(living){
        img = imgs[img_index];
+       }
 
     }
     void display(){
