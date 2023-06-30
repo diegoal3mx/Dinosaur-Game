@@ -1,11 +1,10 @@
 class Dinosaur {
-    int x, y, last_jump_y;
-    int w, h;
+    int x, w, y, h, last_jump_y, img_index, img_crouching_index;
     boolean jumping, crouching, living, stop_jumping;
     float jump_stage;
-    PImage img;
-    PImage sprite;
-    PImage crouching_img;
+    PImage sprite, img, img_running_1, img_running_2, img_running_3, img_crouching_1, img_crouching_2, img_die;
+    PImage [] imgs = new PImage[3];
+    PImage [] crouching_imgs = new PImage[2];
 
     Dinosaur(){
         x=200;
@@ -22,20 +21,34 @@ class Dinosaur {
         return (-4*x*(x-1))*172;
     }
 
-    void update(){
-        if(jumping){
+    void update(){ 
+        if(jumping){ println("IM2");
             y=448-(int)f(jump_stage);
             jump_stage += 0.03;
             last_jump_y = y;
+            img = img_running_1;
          
             if(jump_stage>1){
                 jumping = false;
                 jump_stage=0;
                 y=450;
             }
-        }    
-        
-     }
+        }
+        else if(crouching){  println("IM3 "+ living);
+            if(frameCount%10==0){
+                img=crouching_imgs[img_crouching_index ^= 1];
+            }
+        }
+        else{ println("IM4");
+            if(frameCount%10==0){
+                img_index++;
+                if(img_index==3){
+                    img_index=0;
+                }
+                img = imgs[img_index];         
+            }
+        }   
+    }
 
     void jump(){
 
@@ -43,24 +56,24 @@ class Dinosaur {
      }
 
     void die(int... enemy_height){
- 
+        
         if(isCrouching() && isStoppingJumping()){
             stop_crouch(); 
         }
         else if (isCrouching()){  
             stop_crouch(); 
             x+=30;  
-            }
+        }
     
         Integer eh = (enemy_height.length >= 1) ? enemy_height[0] : null;
          
         if(eh != null){
            y = eh-(h-5);
-         }
+        }
        
-         living = false;
-         img = sprite.get(1068, 2, 44, 47);
-         noLoop();
+        living = false;
+        img=img_die;
+        noLoop();
      }
 
      void stop_jump(){
@@ -79,10 +92,17 @@ class Dinosaur {
         y += 34;
         w = 110;
         h = 52;
-        img = sprite.get(1112, 19, 59, 30);
         }
+
+        updateCrouchingImage();
+
      }
     
+    void updateCrouchingImage(){
+        if(isAlive()){
+        img=crouching_imgs[img_crouching_index];}else{img=img_die;}
+     }
+
     void stop_crouch(){
        
        if(y>450){
@@ -91,8 +111,10 @@ class Dinosaur {
         y -= 34;
         w = 80;
         h = 86;
-        img = sprite.get(848, 2, 44, 47);
        }
+       
+       img = imgs[img_index];
+
     }
     void display(){
         noFill();

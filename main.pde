@@ -8,8 +8,7 @@ void setup(){
 }
 
 void start(){
-    game.player.sprite =  loadImage("imgs/dinosaur-sprite.png");
-    game.player.img =  game.player.sprite.get(848, 2, 44, 47);
+    game.load_player_assets();
     loop();
 }
 
@@ -47,7 +46,11 @@ void keyPressed(){
     }
     else if (key == ' '){
         if(!game.player.isAlive()){
+            delay(200);
             restart();
+        }
+        else if (game.player.isAlive() && game.started){
+            game.keyPressed("UP");
         }
         else{
             game.started = true;

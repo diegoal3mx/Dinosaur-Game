@@ -74,8 +74,21 @@ class Game {
         }      
     }
 
+    void load_player_assets(){
+        player.sprite =  loadImage("imgs/dinosaur-sprite.png");
+        player.img_running_1 =  player.sprite.get(848, 2, 44, 47);
+        player.img_running_2 =  player.sprite.get(936, 2, 44, 47);
+        player.img_running_3 =  player.sprite.get(980, 2, 44, 47);
+        player.img_crouching_1 =  player.sprite.get(1112, 19, 59, 30); 
+        player.img_crouching_2 =  player.sprite.get(1171, 19, 59, 30);
+        player.img_die = player.sprite.get(1068, 2, 44, 47);; 
+        player.imgs [0] = player.img_running_1; player.imgs[1] = player.img_running_2; player.imgs[2] = player.img_running_3;
+        player.crouching_imgs [0] = player.img_crouching_1;  player.crouching_imgs [1] = player.img_crouching_2; 
+        player.img = player.img_running_1;      
+    }
+
     void spawn_enemy(){
-        if((int) random (1)==0){
+        if((int) random (10)==0){
             birds.add(new Bird());
         }
         else{
@@ -114,12 +127,12 @@ class Game {
                     }                  
                 }
                 else if (player.isCrouching() && p_y + p_h > c.y && player.isStoppingJumping() && (p_x-30)+p_w > c.x ){ 
-                    if(p_x>c.x && (p_x-30)+p_w>c.x+c.w){
-                        player.die(c.y);                       
+                    if(p_x>c.x && (p_x-30)+p_w>c.x+c.w){ player.img=player.img_die;
+                        player.die(c.y);     println("M2");                   
                     }
 
-                    else if(p_x<c.x && (p_x-30)+p_w<c.x+c.w){ 
-                        player.die(c.y);                        
+                    else if(p_x<c.x && (p_x-30)+p_w<c.x+c.w){ player.img=player.img_die;
+                        player.die(c.y);  println("M3");                           
                     }          
                 }   
                 else{  
@@ -180,7 +193,9 @@ class Game {
         }
         else if (key == "DOWN" && player.isAlive()){
             if(player.isJumping()){
-                player.stop_jump();  
+                player.stop_jump(); 
+                game.check_collisions();
+                player.updateCrouchingImage();
             }else{
                 player.crouch();  
             }

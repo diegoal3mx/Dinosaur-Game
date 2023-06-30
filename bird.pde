@@ -1,10 +1,8 @@
 class Bird{
 
     int x, y, w, h, img_index;
-    PImage img;
-    PImage img2;
+    PImage sprite, img_wing_down, img_wing_up;
     PImage [] imgs = new PImage[2];
-    PImage sprite;
 
     Bird(){
         x=1350;
@@ -12,9 +10,10 @@ class Bird{
         h= 75;
         img_index = 0;
         sprite = loadImage("imgs/dinosaur-sprite.png");
-        img = sprite.get(134, 2, 46, 40); 
-        img2 = sprite.get(180, 2, 46, 40); 
-        imgs [0] = img; imgs[1] = img2;
+        img_wing_down = sprite.get(134, 2, 46, 40); 
+        img_wing_up = sprite.get(180, 2, 46, 40); 
+        imgs [0] = img_wing_down; imgs[1] = img_wing_up;
+        
         int type = (int)random(4);
 
         switch (type) {
@@ -37,9 +36,7 @@ class Bird{
         x -= speed;
       
         if(frameCount%10==0){
-             image(imgs[img_index ^= 1], x, y, w, h);}
-        else{
-             image(imgs[img_index], x, y, w, h);
+            image(imgs[img_index ^= 1], x, y, w, h);
         }
     }
 

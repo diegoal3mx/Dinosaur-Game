@@ -1,8 +1,7 @@
 class Cactus{
 
     int x, y, w, h;
-    PImage img;
-    PImage sprite;
+    PImage sprite,img;
 
     Cactus(){
         x=1350;
