@@ -3,6 +3,7 @@ import java.util.Iterator;
 class Game {
     Dinosaur player;
     ArrayList<Cactus> cactae;
+    ArrayList<CactusBox> cactaeBoxes;
     ArrayList<Bird> birds;
     float speed = 12; 
     float maxSpeed=20;
@@ -15,6 +16,7 @@ class Game {
         started=start;
         player = new Dinosaur();
         cactae = new ArrayList<Cactus>();
+        cactaeBoxes = new ArrayList<CactusBox>();
         birds = new ArrayList<Bird>();
     }
 
@@ -24,11 +26,15 @@ class Game {
             player.update();
 
         if(player.will_die){
-            player.die();   
+            player.die();
         }
 
         for (Cactus c: cactae){
             c.update((int)speed);
+        }
+
+        for (CactusBox cb: cactaeBoxes){
+            cb.update((int)speed);
         }
 
         for (Bird b: birds){
@@ -72,6 +78,10 @@ class Game {
 
         for (Cactus c: cactae){
             c.display();
+        }
+
+        for (CactusBox cb: cactaeBoxes){
+            cb.display();
         }
 
         for (Bird b: birds){
