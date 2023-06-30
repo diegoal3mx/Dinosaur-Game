@@ -51,7 +51,6 @@ class Dinosaur {
     }
 
     void jump(){
-
         jumping = true;
      }
 
@@ -63,7 +62,7 @@ class Dinosaur {
             stop_crouch(); 
         }
         else if (isCrouching()){  
-            stop_crouch(); 
+            stop_crouch();  
             x+=30;  
         }
     
@@ -118,18 +117,18 @@ class Dinosaur {
      }
 
     void stop_crouch(){
+    
+        if(y>450){
+            crouching = false;  
+            stop_jumping = false; 
+            y -= 34;
+            w = 80;
+            h = 86;
+        }
        
-       if(y>450){
-        crouching = false;  
-        stop_jumping = false; 
-        y -= 34;  
-        w = 80;
-        h = 86;
-       }
-       
-       if(living){
-       img = imgs[img_index];
-       }
+        if(living){
+            img = imgs[img_index];
+        }
 
     }
     void display(){
