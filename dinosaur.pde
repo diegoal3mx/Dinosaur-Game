@@ -5,6 +5,7 @@ class Dinosaur {
     PImage sprite, img, img_running_1, img_running_2, img_running_3, img_crouching_1, img_crouching_2, img_die;
     PImage [] imgs = new PImage[3];
     PImage [] crouching_imgs = new PImage[2];
+    int [] yPositionOfCollisionBoxes = {30,42,67,72,72,30,4};
     ArrayList<CollisionBox> collisionBoxes = new ArrayList<CollisionBox>();
     ArrayList<CollisionBox> activeCollisionBoxes = new ArrayList<CollisionBox>();
     ArrayList<CollisionBox> crouchCollisionBoxes = new ArrayList<CollisionBox>();
@@ -51,19 +52,10 @@ class Dinosaur {
                 if(img_index==3){
                     img_index=0;
                 }
-                img = imgs[img_index];         
+                img = imgs[img_index];
             }
-        }  
-
-            collisionBoxes.get(0).y=y+30;        //PARA SALTAR FALTA CROUCH
-            collisionBoxes.get(1).y=y+42;
-            collisionBoxes.get(2).y=y+67;
-            collisionBoxes.get(3).y=y+72;
-            collisionBoxes.get(4).y=y+72;
-            collisionBoxes.get(5).y=y+30;
-            collisionBoxes.get(6).y=y+4;
-
-       
+        }
+        updateCollisionBoxes();
     }
 
     void jump(){
@@ -148,13 +140,20 @@ class Dinosaur {
             img = imgs[img_index];
         }
 
+        updateCollisionBoxes();
+ 
     }
     
     void createCollisionBoxes(){
-        CollisionBox newcollisionboxes = new CollisionBox(6);
-        for (CollisionBox b : newcollisionboxes.getCollisionBoxes()){
+        for (CollisionBox b : new CollisionBox(6).getCollisionBoxes()){
             collisionBoxes.add(b);
         } 
+    }
+
+    void updateCollisionBoxes(){
+        for (int i=0; i<collisionBoxes.size();i++){
+            collisionBoxes.get(i).y=y+yPositionOfCollisionBoxes[i];
+        }
     }
 
      void createCrouchCollisionBoxes(){
