@@ -2,11 +2,12 @@ class Cactus{
 
     int x, y, w, h, type;
     PImage sprite,img;
+    ArrayList<CollisionBox> collisionBoxes = new ArrayList<CollisionBox>();
 
     Cactus(){
         x=1350;
         sprite = loadImage("imgs/dinosaur-sprite.png");
-        type = (int)random(6); type=(int)random(4); type=1;
+        type = (int)random(6);
 
         if(type < 3){
             h=66;
@@ -48,20 +49,9 @@ class Cactus{
         x -= speed;
     }
     void createCollisionBoxes(){
-          if(type < 3){ 
-            for (int i=0; i<=type; i++){ 
-                CollisionBox collisionboxes = new CollisionBox(type);
-
-                for (CollisionBox b : collisionboxes.getCollisionBoxes()){
-                    game.cactaeBoxes.add(b);
-                }
-            }
-        }else{
-            for (int i=3; i<=type; i++){
-                game.cactaeBoxes.add(new CollisionBox(type));
-            }
-        }
-       
+        for (CollisionBox b : new CollisionBox(type).getCollisionBoxes()){
+            collisionBoxes.add(b);
+        }     
     }
     void display(){
         noFill();

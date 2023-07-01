@@ -3,7 +3,6 @@ import java.util.Iterator;
 class Game {
     Dinosaur player;
     ArrayList<Cactus> cactae;
-    ArrayList<CollisionBox> cactaeBoxes;
     ArrayList<Bird> birds;
     float speed = 12; 
     float maxSpeed=20;
@@ -16,7 +15,6 @@ class Game {
         started=start;
         player = new Dinosaur();
         cactae = new ArrayList<Cactus>();
-        cactaeBoxes = new ArrayList<CollisionBox>();
         birds = new ArrayList<Bird>();
     }
 
@@ -31,10 +29,9 @@ class Game {
 
         for (Cactus c: cactae){
             c.update((int)speed);
-        }
-
-        for (CollisionBox cb: cactaeBoxes){
-            cb.update((int)speed);
+            for (CollisionBox cbc: c.collisionBoxes){
+                cbc.update((int)speed);
+            }
         }
 
         for (Bird b: birds){
@@ -78,13 +75,12 @@ class Game {
 
         for (Cactus c: cactae){
             c.display();
+            for (CollisionBox cbc: c.collisionBoxes){
+                cbc.display();
+            }
         }
-
-        for (CollisionBox cb: cactaeBoxes){
-            cb.display();
-        }
-        for (CollisionBox cbd: player.activeCollisionBoxes){
-            cbd.display();
+        for (CollisionBox cbp: player.activeCollisionBoxes){
+            cbp.display();
         }
         for (Bird b: birds){
             b.display();    
@@ -130,17 +126,19 @@ class Game {
     }
 
     void check_collisions(){
-        int p_x = player.x;
-        int p_y = player.y;
-        int p_w = player.w;
-        int p_h = player.h;
+        for (CollisionBox cbp: player.activeCollisionBoxes){
+        int p_x = cbp.x;
+        int p_y = cbp.y;
+        int p_w = cbp.w;
+        int p_h = cbp.h;
 
-        for(CollisionBox c: cactaeBoxes){
+        for (Cactus c: cactae){
+        for(CollisionBox cbc: c.collisionBoxes){
 
-            if(p_x + p_w > c.x && p_x < c.x + c.w){
+            if(p_x + p_w > cbc.x && p_x < cbc.x + cbc.w){
                 
                 if (player.isJumping() ){
-                    if(p_y+ p_h > c.y){
+                    if(p_y+ p_h > cbc.y){
                        player.die(); 
                     }                  
                 }
@@ -186,24 +184,35 @@ class Game {
                      }                  
              }
         }
+        }
+        }
     }
 
     void check_collisions_crouch(){
         int c_y = 0;
-
-        for(CollisionBox c: cactaeBoxes){    
-            if(player.x + player.w > c.x-speed && player.x < c.x-speed + c.w){
+        for (Cactus c: cactae){
+        if(!player.will_die){
+        for(CollisionBox cbc: c.collisionBoxes){    
+            if(player.x + player.w > cbc.x-speed && player.x < cbc.x-speed + cbc.w){
                 player.will_die=true;
-                c_y=c.y;
+                c_y=cbc.y;
             }   
         }
 
-        if(player.will_die){
-            player.stop_jump(c_y); 
+        if(player.will_die){ 
+            if(c.x+c.w<240){
+                player.stop_jump(); 
+            }
+            else{
+                player.stop_jump(c_y); 
+            }
+            
         } 
         else{
             player.stop_jump();
-        }         
+        }  
+        } 
+          }      
     }
 
     int getHighScore(){
