@@ -5,6 +5,9 @@ class Dinosaur {
     PImage sprite, img, img_running_1, img_running_2, img_running_3, img_crouching_1, img_crouching_2, img_die;
     PImage [] imgs = new PImage[3];
     PImage [] crouching_imgs = new PImage[2];
+    ArrayList<CollisionBox> collisionBoxes = new ArrayList<CollisionBox>();
+    ArrayList<CollisionBox> activeCollisionBoxes = new ArrayList<CollisionBox>();
+    ArrayList<CollisionBox> crouchCollisionBoxes = new ArrayList<CollisionBox>();
 
     Dinosaur(){
         x=200;
@@ -15,6 +18,9 @@ class Dinosaur {
         living = true;
         jump_stage = 0;
         crouching = false;
+        createCollisionBoxes();
+        createCrouchCollisionBoxes();
+        activeCollisionBoxes=collisionBoxes;
     }
 
     float f(float x){
@@ -47,7 +53,17 @@ class Dinosaur {
                 }
                 img = imgs[img_index];         
             }
-        }   
+        }  
+
+            collisionBoxes.get(0).y=y+30;        //PARA SALTAR FALTA CROUCH
+            collisionBoxes.get(1).y=y+42;
+            collisionBoxes.get(2).y=y+67;
+            collisionBoxes.get(3).y=y+72;
+            collisionBoxes.get(4).y=y+72;
+            collisionBoxes.get(5).y=y+30;
+            collisionBoxes.get(6).y=y+4;
+
+       
     }
 
     void jump(){
@@ -94,7 +110,8 @@ class Dinosaur {
      void crouch(){
         
         if(y<=450 && !will_die){
-        crouching = true; 
+        crouching = true;
+        activeCollisionBoxes = crouchCollisionBoxes; 
         y += 34;
         w = 110;
         h = 52;
@@ -120,7 +137,8 @@ class Dinosaur {
     
         if(y>450){
             crouching = false;  
-            stop_jumping = false; 
+            stop_jumping = false;
+            activeCollisionBoxes = collisionBoxes; 
             y -= 34;
             w = 80;
             h = 86;
@@ -131,8 +149,24 @@ class Dinosaur {
         }
 
     }
+    
+    void createCollisionBoxes(){
+        CollisionBox newcollisionboxes = new CollisionBox(6);
+        for (CollisionBox b : newcollisionboxes.getCollisionBoxes()){
+            collisionBoxes.add(b);
+        } 
+    }
+
+     void createCrouchCollisionBoxes(){
+        CollisionBox newcollisionboxes = new CollisionBox(7);
+        for (CollisionBox b : newcollisionboxes.getCollisionBoxes()){
+            crouchCollisionBoxes.add(b);
+        } 
+    }
+
     void display(){
         noFill();
+        fill(0,255,0);
         rect(x, y, w, h);
         image(img, x, y, w, h);
     }

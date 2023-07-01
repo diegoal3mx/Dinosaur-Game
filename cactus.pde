@@ -6,7 +6,7 @@ class Cactus{
     Cactus(){
         x=1350;
         sprite = loadImage("imgs/dinosaur-sprite.png");
-        type = (int)random(6);
+        type = (int)random(6); type=(int)random(4); type=1;
 
         if(type < 3){
             h=66;
@@ -48,7 +48,20 @@ class Cactus{
         x -= speed;
     }
     void createCollisionBoxes(){
-        game.cactaeBoxes.add(new CactusBox(type));
+          if(type < 3){ 
+            for (int i=0; i<=type; i++){ 
+                CollisionBox collisionboxes = new CollisionBox(type);
+
+                for (CollisionBox b : collisionboxes.getCollisionBoxes()){
+                    game.cactaeBoxes.add(b);
+                }
+            }
+        }else{
+            for (int i=3; i<=type; i++){
+                game.cactaeBoxes.add(new CollisionBox(type));
+            }
+        }
+       
     }
     void display(){
         noFill();

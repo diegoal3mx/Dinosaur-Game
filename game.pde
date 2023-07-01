@@ -3,7 +3,7 @@ import java.util.Iterator;
 class Game {
     Dinosaur player;
     ArrayList<Cactus> cactae;
-    ArrayList<CactusBox> cactaeBoxes;
+    ArrayList<CollisionBox> cactaeBoxes;
     ArrayList<Bird> birds;
     float speed = 12; 
     float maxSpeed=20;
@@ -16,7 +16,7 @@ class Game {
         started=start;
         player = new Dinosaur();
         cactae = new ArrayList<Cactus>();
-        cactaeBoxes = new ArrayList<CactusBox>();
+        cactaeBoxes = new ArrayList<CollisionBox>();
         birds = new ArrayList<Bird>();
     }
 
@@ -33,7 +33,7 @@ class Game {
             c.update((int)speed);
         }
 
-        for (CactusBox cb: cactaeBoxes){
+        for (CollisionBox cb: cactaeBoxes){
             cb.update((int)speed);
         }
 
@@ -80,10 +80,12 @@ class Game {
             c.display();
         }
 
-        for (CactusBox cb: cactaeBoxes){
+        for (CollisionBox cb: cactaeBoxes){
             cb.display();
         }
-
+        for (CollisionBox cbd: player.activeCollisionBoxes){
+            cbd.display();
+        }
         for (Bird b: birds){
             b.display();    
         }      
@@ -133,7 +135,7 @@ class Game {
         int p_w = player.w;
         int p_h = player.h;
 
-        for(Cactus c: cactae){
+        for(CollisionBox c: cactaeBoxes){
 
             if(p_x + p_w > c.x && p_x < c.x + c.w){
                 
@@ -189,8 +191,8 @@ class Game {
     void check_collisions_crouch(){
         int c_y = 0;
 
-        for(Cactus c: cactae){       
-            if(player.x + player.w > c.x && player.x < c.x + c.w){
+        for(CollisionBox c: cactaeBoxes){    
+            if(player.x + player.w > c.x-speed && player.x < c.x-speed + c.w){
                 player.will_die=true;
                 c_y=c.y;
             }   
@@ -209,13 +211,13 @@ class Game {
     }
 
     void keyPressed(String key){
-        if (key == "UP" && player.isAlive()){
+        if (key == "UP" && player.isAlive() && started){
             if (!player.isCrouching()){
                  player.jump();  
             }
            
         }
-        else if (key == "DOWN" && player.isAlive()){
+        else if (key == "DOWN" && player.isAlive() && started){
             if(player.isJumping()){
                 player.stop_jumping = true;
                 check_collisions_crouch();
@@ -226,7 +228,7 @@ class Game {
     }
 
     void keyReleased(String key){
-        if (key == "DOWN" && player.isAlive()){
+        if (key == "DOWN" && player.isAlive() && started){
             player.stop_crouch(); 
         }
     } 
