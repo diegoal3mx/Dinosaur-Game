@@ -36,7 +36,10 @@ class Game {
 
         for (Bird b: birds){
             b.update((int)speed);
-            for (CollisionBox cbb: b.activeCollisionBoxes){
+            for (CollisionBox cbb: b.wingDownCollisionBoxes){
+                cbb.update((int)speed);
+            }
+            for (CollisionBox cbb: b.wingUpCollisionBoxes){
                 cbb.update((int)speed);
             }
         }
@@ -107,7 +110,7 @@ class Game {
     }
 
     void spawn_enemy(){
-        if((int) random (1)==0){
+        if((int) random (10)==0){
             birds.add(new Bird());
         }
         else{
@@ -170,23 +173,26 @@ class Game {
   
             for (Bird b: birds){
 
-                if(p_x + p_w > b.x && p_x < b.x + b.w){
-               
-                    if(player.isCrouching() && player.isStoppingJumping() && player.last_jump_y < b.y  && (p_x-30)+p_w>last_bird_x ){ 
+                for(CollisionBox cbb: b.activeCollisionBoxes){
 
-                        if(p_x>b.x && (p_x-30)+p_w>b.x+b.w){ 
-                            player.die(b.y);                       
+                if(p_x + p_w > cbb.x && p_x < cbb.x + cbb.w){
+               
+                    if(player.isCrouching() && player.isStoppingJumping() && player.last_jump_y < cbb.y  && (p_x-30)+p_w>last_bird_x ){ 
+
+                        if(p_x>cbb.x && (p_x-30)+p_w>cbb.x+cbb.w){ 
+                            player.die(cbb.y);                       
                         }
 
-                         else if(p_x<b.x && (p_x-30)+p_w<b.x+b.w){
-                            player.die(b.y);                          
+                         else if(p_x<cbb.x && (p_x-30)+p_w<cbb.x+cbb.w){
+                            player.die(cbb.y);                          
                         }
                     } 
-                    else if(p_y+ p_h > b.y && p_y < b.y +b.h){                  
+                    else if(p_y+ p_h > cbb.y && p_y < cbb.y +cbb.h){                  
                         player.stop_jumping = false;                 
                         player.die(); 
                     }                  
                 }
+            }
             }
         }
     }

@@ -164,7 +164,6 @@ class Dinosaur {
 
     void display(){
         noFill();
-        fill(0,255,0);
         rect(x, y, w, h);
         image(img, x, y, w, h);
     }

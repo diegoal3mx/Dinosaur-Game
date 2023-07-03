@@ -17,13 +17,8 @@ class Bird{
         img_wing_down = sprite.get(134, 2, 46, 40); 
         img_wing_up = sprite.get(180, 2, 46, 40); 
         imgs [0] = img_wing_down; imgs[1] = img_wing_up;
-        createWingUpCollisionBoxes();
-        createWingDownCollisionBoxes();
-        collisionBoxes[1]=wingUpCollisionBoxes;
-        collisionBoxes[0]=wingDownCollisionBoxes;
-        activeCollisionBoxes=collisionBoxes[1];
         
-        int type = (int)random(4); type=0;
+        int type = (int)random(4);
 
         switch (type) {
             case 0:
@@ -39,6 +34,11 @@ class Bird{
              y = (int) random (100,390);
                  break;
         }
+
+        createWingUpCollisionBoxes();
+        createWingDownCollisionBoxes();
+        collisionBoxes[0]=wingDownCollisionBoxes;collisionBoxes[1]=wingUpCollisionBoxes;
+        activeCollisionBoxes=collisionBoxes[0];
     }
 
     void update(int speed){
@@ -46,18 +46,18 @@ class Bird{
       
         if(frameCount%10==0){
             image(imgs[img_index ^= 1], x, y, w, h);
-            //activeCollisionBoxes=collisionBoxes[0];
+            activeCollisionBoxes=collisionBoxes[img_index];
         }
     }
 
     void createWingDownCollisionBoxes(){
-        for (CollisionBox b : new CollisionBox(8).getCollisionBoxes()){
+        for (CollisionBox b : new CollisionBox(8,y).getCollisionBoxes()){
             wingDownCollisionBoxes.add(b);
         } 
     }
 
     void createWingUpCollisionBoxes(){
-        for (CollisionBox b : new CollisionBox(9).getCollisionBoxes()){
+        for (CollisionBox b : new CollisionBox(9,y).getCollisionBoxes()){
             wingUpCollisionBoxes.add(b);
         } 
     }
@@ -66,6 +66,5 @@ class Bird{
         noFill();
         rect(x,y,w,h);
         image(imgs[img_index], x, y, w, h);
-        //activeCollisionBoxes=collisionBoxes[0];
     }
 }
