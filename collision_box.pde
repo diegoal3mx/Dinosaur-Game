@@ -89,6 +89,33 @@ class CollisionBox{
                 boxes.add(new CollisionBox(222,517,26,17));
                 boxes.add(new CollisionBox(247,517,22,9));
                 break;
+            case 8:
+               //y2=444, y13=465, y10=? +*2?
+                                            //  x,  y,  w,  h    
+                            // sprite.get(134, 2, 46, 40);  
+                                     //  1350 385 84  75
+                boxes.add(new CollisionBox(1354,410,11,8));
+                boxes.add(new CollisionBox(1362,405,19,14));
+                boxes.add(new CollisionBox(1366,400,11,8));
+                boxes.add(new CollisionBox(1376,415,33,12));
+                boxes.add(new CollisionBox(1382,422,48,12));
+                boxes.add(new CollisionBox(1382,433,33,4));
+                boxes.add(new CollisionBox(1382,436,8,20));
+                boxes.add(new CollisionBox(1389,436,8,8));
+                //boxes.add(new CollisionBox(1387,433,28,4));
+                break;
+            case 9:
+                boxes.add(new CollisionBox(1354,410,11,8));
+                boxes.add(new CollisionBox(1362,405,19,14));
+                boxes.add(new CollisionBox(1366,400,11,8));
+                boxes.add(new CollisionBox(1376,415,33,12));
+                boxes.add(new CollisionBox(1382,422,48,12));
+                boxes.add(new CollisionBox(1387,433,28,4));
+                boxes.add(new CollisionBox(1382,395,8,20));
+
+                boxes.add(new CollisionBox(1389,389,8,12));
+               
+                break;    
         }
     }
 

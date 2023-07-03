@@ -150,17 +150,16 @@ class Dinosaur {
         } 
     }
 
+    void createCrouchCollisionBoxes(){
+        for (CollisionBox b : new CollisionBox(7).getCollisionBoxes()){
+            crouchCollisionBoxes.add(b);
+        } 
+    }
+
     void updateCollisionBoxes(){
         for (int i=0; i<collisionBoxes.size();i++){
             collisionBoxes.get(i).y=y+yPositionOfCollisionBoxes[i];
         }
-    }
-
-     void createCrouchCollisionBoxes(){
-        CollisionBox newcollisionboxes = new CollisionBox(7);
-        for (CollisionBox b : newcollisionboxes.getCollisionBoxes()){
-            crouchCollisionBoxes.add(b);
-        } 
     }
 
     void display(){
