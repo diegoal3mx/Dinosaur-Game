@@ -5,6 +5,11 @@ class Dinosaur {
     PImage sprite, img, img_running_1, img_running_2, img_running_3, img_crouching_1, img_crouching_2, img_die;
     PImage [] imgs = new PImage[3];
     PImage [] crouching_imgs = new PImage[2];
+    int [] xPositionOfCollisionBoxes = {2,12,12,16,20,20,37,28,39};
+    int [] yPositionOfCollisionBoxes = {30,42,52,60,67,72,72,30,4};
+    ArrayList<CollisionBox> collisionBoxes = new ArrayList<CollisionBox>();
+    ArrayList<CollisionBox> activeCollisionBoxes = new ArrayList<CollisionBox>();
+    ArrayList<CollisionBox> crouchCollisionBoxes = new ArrayList<CollisionBox>();
 
     Dinosaur(){
         x=200;
@@ -15,6 +20,9 @@ class Dinosaur {
         living = true;
         jump_stage = 0;
         crouching = false;
+        createCollisionBoxes();
+        createCrouchCollisionBoxes();
+        activeCollisionBoxes=collisionBoxes;
     }
 
     float f(float x){
@@ -45,37 +53,41 @@ class Dinosaur {
                 if(img_index==3){
                     img_index=0;
                 }
-                img = imgs[img_index];         
+                img = imgs[img_index];
             }
-        }   
+        }
+        updateYCollisionBoxes();
     }
 
     void jump(){
         jumping = true;
-     }
+    }
 
     void die(int... enemy_height){ 
         living = false;
         img=img_die;
         
         if(isCrouching() && isStoppingJumping()){
-            stop_crouch(); 
+            stop_crouch();
         }
-        else if (isCrouching()){  
-            stop_crouch();  
-            x+=30;  
+        else if (isCrouching()){
+            stop_crouch();
+            x+=30;
         }
     
         Integer eh = (enemy_height.length >= 1) ? enemy_height[0] : null;
          
-        if(eh != null){ 
-           y = eh-(h-5); 
+        if(eh != null){
+           y = eh-(h-5);
         }
-       
+        w=80;
+        h=86;
+        activeCollisionBoxes = collisionBoxes;
+        updateXYCollisionBoxes();
         noLoop();
-     }
+    }
 
-     void stop_jump(int... stop_jump_enemy_height){
+    void stop_jump(int... stop_jump_enemy_height){
 
         Integer eh = (stop_jump_enemy_height.length >= 1) ? stop_jump_enemy_height[0] : null;
          
@@ -89,12 +101,13 @@ class Dinosaur {
         jumping=false;
         jump_stage=0;
         crouch();
-     }
+    }
 
-     void crouch(){
+    void crouch(){
         
-        if(y<=450 && !will_die){
-        crouching = true; 
+        if(y<=450 && !will_die && living){
+        crouching = true;
+        activeCollisionBoxes = crouchCollisionBoxes;
         y += 34;
         w = 110;
         h = 52;
@@ -105,22 +118,23 @@ class Dinosaur {
 
         updateCrouchingImage();
 
-     }
+    }
     
-    void updateCrouchingImage(){ 
-        if(will_die){ 
+    void updateCrouchingImage(){
+        if(will_die){
             img=img_die;
         }
-        else{ 
+        else{
             img=crouching_imgs[img_crouching_index];
         }
-     }
+    }
 
     void stop_crouch(){
     
         if(y>450){
-            crouching = false;  
-            stop_jumping = false; 
+            crouching = false;
+            stop_jumping = false;
+            activeCollisionBoxes = collisionBoxes;
             y -= 34;
             w = 80;
             h = 86;
@@ -130,7 +144,35 @@ class Dinosaur {
             img = imgs[img_index];
         }
 
+        updateYCollisionBoxes();
+ 
     }
+    
+    void createCollisionBoxes(){
+        for (CollisionBox b : new CollisionBox(6).getCollisionBoxes()){
+            collisionBoxes.add(b);
+        } 
+    }
+
+    void createCrouchCollisionBoxes(){
+        for (CollisionBox b : new CollisionBox(7).getCollisionBoxes()){
+            crouchCollisionBoxes.add(b);
+        } 
+    }
+
+    void updateYCollisionBoxes(){
+        for (int i=0; i<collisionBoxes.size();i++){
+            collisionBoxes.get(i).y=y+yPositionOfCollisionBoxes[i];
+        }
+    }
+
+    void updateXYCollisionBoxes(){
+        for (int i=0; i<collisionBoxes.size();i++){
+            collisionBoxes.get(i).x=x+xPositionOfCollisionBoxes[i];
+        }
+        updateYCollisionBoxes();
+    }
+
     void display(){
         noFill();
         rect(x, y, w, h);

@@ -3,6 +3,10 @@ class Bird{
     int x, y, w, h, img_index;
     PImage sprite, img_wing_down, img_wing_up;
     PImage [] imgs = new PImage[2];
+    ArrayList<CollisionBox>[] collisionBoxes = (ArrayList<CollisionBox>[]) new ArrayList[2];
+    ArrayList<CollisionBox> activeCollisionBoxes = new ArrayList<CollisionBox>();
+    ArrayList<CollisionBox> wingUpCollisionBoxes = new ArrayList<CollisionBox>();
+    ArrayList<CollisionBox> wingDownCollisionBoxes = new ArrayList<CollisionBox>();
 
     Bird(){
         x=1350;
@@ -10,8 +14,8 @@ class Bird{
         h= 75;
         img_index = 0;
         sprite = loadImage("imgs/dinosaur-sprite.png");
-        img_wing_down = sprite.get(134, 2, 46, 40); 
-        img_wing_up = sprite.get(180, 2, 46, 40); 
+        img_wing_down = sprite.get(134, 2, 46, 40);
+        img_wing_up = sprite.get(180, 2, 46, 40);
         imgs [0] = img_wing_down; imgs[1] = img_wing_up;
         
         int type = (int)random(4);
@@ -30,6 +34,11 @@ class Bird{
              y = (int) random (100,390);
                  break;
         }
+
+        createWingUpCollisionBoxes();
+        createWingDownCollisionBoxes();
+        collisionBoxes[0]=wingDownCollisionBoxes;collisionBoxes[1]=wingUpCollisionBoxes;
+        activeCollisionBoxes=collisionBoxes[0];
     }
 
     void update(int speed){
@@ -37,7 +46,20 @@ class Bird{
       
         if(frameCount%10==0){
             image(imgs[img_index ^= 1], x, y, w, h);
+            activeCollisionBoxes=collisionBoxes[img_index];
         }
+    }
+
+    void createWingDownCollisionBoxes(){
+        for (CollisionBox b : new CollisionBox(8,y).getCollisionBoxes()){
+            wingDownCollisionBoxes.add(b);
+        } 
+    }
+
+    void createWingUpCollisionBoxes(){
+        for (CollisionBox b : new CollisionBox(9,y).getCollisionBoxes()){
+            wingUpCollisionBoxes.add(b);
+        } 
     }
 
     void display(){
