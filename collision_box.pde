@@ -77,7 +77,7 @@ class CollisionBox{
                 boxes.add(new CollisionBox(220,522,11,11));
                 boxes.add(new CollisionBox(237,522,11,11));
                 boxes.add(new CollisionBox(228,480,35,17));
-                boxes.add(new CollisionBox(239,454,37,28)); 
+                boxes.add(new CollisionBox(239,454,37,28));
             break;
             case 7:
                 boxes.add(new CollisionBox(202,488,17,20));

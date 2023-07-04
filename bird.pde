@@ -14,8 +14,8 @@ class Bird{
         h= 75;
         img_index = 0;
         sprite = loadImage("imgs/dinosaur-sprite.png");
-        img_wing_down = sprite.get(134, 2, 46, 40); 
-        img_wing_up = sprite.get(180, 2, 46, 40); 
+        img_wing_down = sprite.get(134, 2, 46, 40);
+        img_wing_up = sprite.get(180, 2, 46, 40);
         imgs [0] = img_wing_down; imgs[1] = img_wing_up;
         
         int type = (int)random(4);

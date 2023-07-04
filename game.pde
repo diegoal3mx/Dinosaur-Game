@@ -24,51 +24,51 @@ class Game {
             score += 1*(speed/70);
             player.update();
 
-        if(player.will_die){
-            player.die();
-        }
-
-        for (Cactus c: cactae){
-            c.update((int)speed);
-            for (CollisionBox cbc: c.collisionBoxes){
-                cbc.update((int)speed);
+            if(player.will_die){
+                player.die();
             }
-        }
 
-        for (Bird b: birds){
-            b.update((int)speed);
-            for (CollisionBox cbb: b.wingDownCollisionBoxes){
-                cbb.update((int)speed);
+            for (Cactus c: cactae){
+                c.update((int)speed);
+                for (CollisionBox cbc: c.collisionBoxes){
+                    cbc.update((int)speed);
+                }
             }
-            for (CollisionBox cbb: b.wingUpCollisionBoxes){
-                cbb.update((int)speed);
+
+            for (Bird b: birds){
+                b.update((int)speed);
+                for (CollisionBox cbb: b.wingDownCollisionBoxes){
+                    cbb.update((int)speed);
+                }
+                for (CollisionBox cbb: b.wingUpCollisionBoxes){
+                    cbb.update((int)speed);
+                }
             }
-        }
 
-        fill(32, 33, 36); 
-        text((int)score,width/2+200,50);
-        text("Score",width/2+100,50);
+            fill(32, 33, 36); 
+            text((int)score,width/2+200,50);
+            text("Score",width/2+100,50);
 
-        if(highScore < score){
-            highScore = (int)score;
-        }
+            if(highScore < score){
+                highScore = (int)score;
+            }
     
-        text(highScore,width/2+460,50);
-        text("High Score",width/2+280,50);
+            text(highScore,width/2+460,50);
+            text("High Score",width/2+280,50);
 
-        if(!player.will_die){
-            check_collisions();
-        }
+            if(!player.will_die){
+                check_collisions();
+            }
 
-        if(speed<maxSpeed){
-            speed += 0.001;
-        }
+            if(speed<maxSpeed){
+                speed += 0.001;
+            }
         }
         else{
-             textSize(32);
-             fill(32, 33, 36); 
-             text("Presiona la barra espaciadora para jugar",width/2-435,585);
-             started=false; 
+            textSize(32);
+            fill(32, 33, 36);
+            text("Presiona la barra espaciadora para jugar",width/2-435,585);
+            started=false; 
         }
     }
 
@@ -112,8 +112,8 @@ class Game {
         player.img_crouching_2 =  player.sprite.get(1171, 19, 59, 30);
         player.img_die = player.sprite.get(1068, 2, 44, 47);; 
         player.imgs [0] = player.img_running_1; player.imgs[1] = player.img_running_2; player.imgs[2] = player.img_running_3;
-        player.crouching_imgs [0] = player.img_crouching_1;  player.crouching_imgs [1] = player.img_crouching_2; 
-        player.img = player.img_running_1;      
+        player.crouching_imgs [0] = player.img_crouching_1;  player.crouching_imgs [1] = player.img_crouching_2;
+        player.img = player.img_running_1;
     }
 
     void spawn_enemy(){
@@ -130,7 +130,7 @@ class Game {
             Cactus c = iterator.next();
             if(c.x<0) {
                 iterator.remove();
-             }
+            }
         }
 
         for (Iterator<Bird> iterator = birds.iterator(); iterator.hasNext();) {
@@ -157,7 +157,7 @@ class Game {
                         if (player.isJumping() ){
                             if(p_y+ p_h > cbc.y){
                                 player.die(); break loopCactus;
-                            }                  
+                            }
                         }
                         else{
                             player.stop_jumping = false;
@@ -170,7 +170,7 @@ class Game {
                                 player.die(); break loopCactus;
                             } 
                         }
-                    }                 
+                    }
                 }
             }
 
@@ -191,10 +191,10 @@ class Game {
 
                     if(p_x + p_w > cbb.x && p_x < cbb.x + cbb.w){
                
-                        if(p_y+ p_h > cbb.y && p_y < cbb.y +cbb.h){                  
+                        if(p_y+ p_h > cbb.y && p_y < cbb.y +cbb.h){
                             player.stop_jumping = false;
                             player.x+=1;
-                            player.die(); break loopBirds; 
+                            player.die(); break loopBirds;
                         }
                     }
                 }
@@ -206,12 +206,12 @@ class Game {
         int e_y = 0;
         for (Cactus c: cactae){
             if(!player.will_die){
-                for(CollisionBox cbc: c.collisionBoxes){    
+                for(CollisionBox cbc: c.collisionBoxes){
                     if(player.x + player.w > cbc.x-speed && player.x < cbc.x-speed + cbc.w){
                         player.will_die=true;
                         e_y=cbc.y;
                         break;
-                    }   
+                    }
                 }
                 if(player.will_die){
                     if(c.type<3){
@@ -251,14 +251,14 @@ class Game {
         for (Bird b: birds){
             if(!player.will_die){
                 for(CollisionBox cbb: b.activeCollisionBoxes){
-                    if(player.x + player.w > cbb.x-speed && player.x < cbb.x-speed + cbb.w){ 
-                        if(player.last_jump_y < cbb.y  && player.x+player.w>last_bird_x ){ 
+                    if(player.x + player.w > cbb.x-speed && player.x < cbb.x-speed + cbb.w){
+                        if(player.last_jump_y < cbb.y  && player.x+player.w>last_bird_x ){
                             player.will_die=true; 
                             e_y=cbb.y+10; break;
                         }
                     }
                 }
-                if(player.will_die){ 
+                if(player.will_die){
                     if(b.x+b.w<240){
                         player.stop_jump(e_y+40);
                     }
@@ -268,7 +268,7 @@ class Game {
                 } 
                 else{
                     player.stop_jump();
-                }  
+                }
             }
         }
     }
@@ -280,7 +280,7 @@ class Game {
     void keyPressed(String key){
         if (key == "UP" && player.isAlive() && started){
             if (!player.isCrouching()){
-                 player.jump();  
+                 player.jump();
             }
            
         }
@@ -296,7 +296,7 @@ class Game {
 
     void keyReleased(String key){
         if (key == "DOWN" && player.isAlive() && started){
-            player.stop_crouch(); 
+            player.stop_crouch();
         }
     } 
 }

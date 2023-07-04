@@ -61,33 +61,33 @@ class Dinosaur {
 
     void jump(){
         jumping = true;
-     }
+    }
 
     void die(int... enemy_height){ 
         living = false;
         img=img_die;
         
         if(isCrouching() && isStoppingJumping()){
-            stop_crouch(); 
+            stop_crouch();
         }
-        else if (isCrouching()){  
-            stop_crouch();  
-            x+=30;  
+        else if (isCrouching()){
+            stop_crouch();
+            x+=30;
         }
     
         Integer eh = (enemy_height.length >= 1) ? enemy_height[0] : null;
          
-        if(eh != null){ 
-           y = eh-(h-5); 
+        if(eh != null){
+           y = eh-(h-5);
         }
         w=80;
         h=86;
         activeCollisionBoxes = collisionBoxes;
         updateXYCollisionBoxes();
         noLoop();
-     }
+    }
 
-     void stop_jump(int... stop_jump_enemy_height){
+    void stop_jump(int... stop_jump_enemy_height){
 
         Integer eh = (stop_jump_enemy_height.length >= 1) ? stop_jump_enemy_height[0] : null;
          
@@ -101,13 +101,13 @@ class Dinosaur {
         jumping=false;
         jump_stage=0;
         crouch();
-     }
+    }
 
-     void crouch(){
+    void crouch(){
         
         if(y<=450 && !will_die && living){
         crouching = true;
-        activeCollisionBoxes = crouchCollisionBoxes; 
+        activeCollisionBoxes = crouchCollisionBoxes;
         y += 34;
         w = 110;
         h = 52;
@@ -118,23 +118,23 @@ class Dinosaur {
 
         updateCrouchingImage();
 
-     }
+    }
     
-    void updateCrouchingImage(){ 
-        if(will_die){ 
+    void updateCrouchingImage(){
+        if(will_die){
             img=img_die;
         }
-        else{ 
+        else{
             img=crouching_imgs[img_crouching_index];
         }
-     }
+    }
 
     void stop_crouch(){
     
         if(y>450){
-            crouching = false;  
+            crouching = false;
             stop_jumping = false;
-            activeCollisionBoxes = collisionBoxes; 
+            activeCollisionBoxes = collisionBoxes;
             y -= 34;
             w = 80;
             h = 86;
