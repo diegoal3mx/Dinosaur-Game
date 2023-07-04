@@ -1,6 +1,7 @@
 Game game = new Game(false);
 
-int every_sec = 0;
+int every_sec = 0; 
+boolean restartFromSpaceKeyEnabled=true;
 
 void setup(){
     size (1280,720);
@@ -42,15 +43,16 @@ void keyPressed(){
         }
         else if (keyCode == DOWN){
             game.keyPressed("DOWN");
-        }    
+        }
     }
     else if (key == ' '){
-        if(!game.player.isAlive()){
+        if(!game.player.isAlive() && restartFromSpaceKeyEnabled){
             delay(200);
             restart();
         }
         else if (game.player.isAlive() && game.started){
             game.keyPressed("UP");
+            restartFromSpaceKeyEnabled=false;
         }
         else{
             game.started = true;
@@ -62,6 +64,13 @@ void keyReleased() {
     if(key == CODED){
         if (keyCode == DOWN){
             game.keyReleased("DOWN");
+        }
+    }
+    else if (key == ' '){
+        restartFromSpaceKeyEnabled=true;
+        if(!game.player.isAlive()){
+            delay(200);
+            restart();
         }
     }
 }
