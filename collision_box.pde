@@ -128,6 +128,5 @@ class CollisionBox{
     void display(){
         fill(255,0,0,50);
         rect(x,y,w,h);
-      
     }
 }

@@ -1,14 +1,17 @@
 Game game = new Game(false);
 
-int every_sec = 0; 
+int every_sec = 0;
 boolean restartFromSpaceKeyEnabled=true;
 
 void setup(){
+    frameRate(60);
     size (1280,720);
     start();
 }
 
 void start(){
+    game.load_game_sprite();
+    game.load_ground_assets();
     game.load_player_assets();
     loop();
 }
@@ -26,7 +29,7 @@ void draw(){
     game.update();
     game.display(); 
 
-    if(game.started){ 
+    if(game.started){
         game.despawn_enemy();
         if(millis() - every_sec > 1000){
             every_sec = millis();

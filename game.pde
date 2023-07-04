@@ -1,6 +1,7 @@
 import java.util.Iterator;
 
 class Game {
+    Ground ground;
     Dinosaur player;
     ArrayList<Cactus> cactae;
     ArrayList<Bird> birds;
@@ -11,9 +12,11 @@ class Game {
     boolean started=false;
     boolean collisionBoxesVisible=false;
     float last_bird_x = 1350;
+    PImage sprite;
 
     Game(boolean start){
         started=start;
+        ground = new Ground();
         player = new Dinosaur();
         cactae = new ArrayList<Cactus>();
         birds = new ArrayList<Bird>();
@@ -22,6 +25,7 @@ class Game {
     void update(){
         if(player.isAlive() && started){
             score += 1*(speed/70);
+            ground.update((int)speed);
             player.update();
 
             if(player.will_die){
@@ -78,6 +82,7 @@ class Game {
        
         line(0, 450 + 86, width, 450 + 86);
         noStroke();
+        ground.display();
         player.display();
 
         for (Cactus c: cactae){
@@ -103,17 +108,23 @@ class Game {
         }      
     }
 
+    void load_game_sprite(){
+        sprite =  loadImage("imgs/dinosaur-sprite.png");
+    }
     void load_player_assets(){
-        player.sprite =  loadImage("imgs/dinosaur-sprite.png");
-        player.img_running_1 =  player.sprite.get(848, 2, 44, 47);
-        player.img_running_2 =  player.sprite.get(936, 2, 44, 47);
-        player.img_running_3 =  player.sprite.get(980, 2, 44, 47);
-        player.img_crouching_1 =  player.sprite.get(1112, 19, 59, 30); 
-        player.img_crouching_2 =  player.sprite.get(1171, 19, 59, 30);
-        player.img_die = player.sprite.get(1068, 2, 44, 47);; 
+        player.img_running_1 = sprite.get(848, 2, 44, 47);
+        player.img_running_2 = sprite.get(936, 2, 44, 47);
+        player.img_running_3 = sprite.get(980, 2, 44, 47);
+        player.img_crouching_1 = sprite.get(1112, 19, 59, 30); 
+        player.img_crouching_2 = sprite.get(1171, 19, 59, 30);
+        player.img_die = sprite.get(1068, 2, 44, 47);; 
         player.imgs [0] = player.img_running_1; player.imgs[1] = player.img_running_2; player.imgs[2] = player.img_running_3;
         player.crouching_imgs [0] = player.img_crouching_1;  player.crouching_imgs [1] = player.img_crouching_2;
         player.img = player.img_running_1;
+    }
+
+    void load_ground_assets(){
+        ground.img = sprite.get(2, 54, 1200, 12);
     }
 
     void spawn_enemy(){
@@ -128,7 +139,7 @@ class Game {
     void despawn_enemy(){
         for (Iterator<Cactus> iterator = cactae.iterator(); iterator.hasNext();) {
             Cactus c = iterator.next();
-            if(c.x<0) {
+            if(c.x+c.w<0) {
                 iterator.remove();
             }
         }
@@ -142,12 +153,13 @@ class Game {
     }
 
     void check_collisions(){
+        loopCollisions:
         for (CollisionBox cbp: player.activeCollisionBoxes){
             int p_x = cbp.x;
             int p_y = cbp.y;
             int p_w = cbp.w;
             int p_h = cbp.h;
-            loopCactus:
+            
             for (Cactus c: cactae){
 
                 for(CollisionBox cbc: c.collisionBoxes){
@@ -156,19 +168,19 @@ class Game {
                 
                         if (player.isJumping() ){
                             if(p_y+ p_h > cbc.y){
-                                player.die(); break loopCactus;
+                                player.die(); break loopCollisions;
                             }
                         }
                         else{
                             player.stop_jumping = false;
                             if(c.type<3){
                                 if(cbc.h!=30){
-                                    player.die(); break loopCactus;
+                                    player.die(); break loopCollisions;
                                 }
                             }
                             else{
-                                player.die(); break loopCactus;
-                            } 
+                                player.die(); break loopCollisions;
+                            }
                         }
                     }
                 }
@@ -184,7 +196,7 @@ class Game {
                     }
                 }
             }
-            loopBirds:
+            
             for (Bird b: birds){
 
                 for(CollisionBox cbb: b.activeCollisionBoxes){
@@ -194,7 +206,7 @@ class Game {
                         if(p_y+ p_h > cbb.y && p_y < cbb.y +cbb.h){
                             player.stop_jumping = false;
                             player.x+=1;
-                            player.die(); break loopBirds;
+                            player.die(); break loopCollisions;
                         }
                     }
                 }
@@ -204,6 +216,7 @@ class Game {
 
     void check_collisions_crouch(){
         int e_y = 0;
+        loopCactus:
         for (Cactus c: cactae){
             if(!player.will_die){
                 for(CollisionBox cbc: c.collisionBoxes){
@@ -235,6 +248,9 @@ class Game {
                         else if(c.x>250){
                             player.stop_jump(); player.x+=2;
                         }
+                        else if(c.x+c.w<210){
+                            player.stop_jump(e_y+10);
+                        }
                         else if(c.x+c.w<240){
                             player.stop_jump();
                         }
@@ -242,12 +258,14 @@ class Game {
                             player.stop_jump(e_y+5);
                         }
                     }
+                    break loopCactus;
                 } 
                 else{
                     player.stop_jump();
                 }  
             } 
         }
+        loopBirds:
         for (Bird b: birds){
             if(!player.will_die){
                 for(CollisionBox cbb: b.activeCollisionBoxes){
@@ -264,7 +282,8 @@ class Game {
                     }
                     else{
                         player.stop_jump(e_y);
-                    }   
+                    }
+                    break loopBirds;     
                 } 
                 else{
                     player.stop_jump();
