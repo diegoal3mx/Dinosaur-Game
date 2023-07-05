@@ -2,7 +2,7 @@ class Dinosaur {
     int x, w, y, h, last_jump_y, img_index, img_crouching_index;
     boolean jumping, crouching, living, stop_jumping, will_die;
     float jump_stage;
-    PImage img, img_running_1, img_running_2, img_running_3, img_crouching_1, img_crouching_2, img_die;
+    PImage img, img_running_1, img_running_2, img_running_3, img_crouching_1, img_crouching_2, img_die, img_die_night;
     PImage [] imgs = new PImage[3];
     PImage [] crouching_imgs = new PImage[2];
     int [] xPositionOfCollisionBoxes = {2,12,12,16,20,20,37,28,39};
@@ -81,7 +81,15 @@ class Dinosaur {
 
     void die(int... enemy_height){ 
         living = false;
-        img=img_die;
+
+        if(game.night){
+            image(game.imgGameOverNight, 466, 350, 347, 20);
+            img=img_die_night;
+        }
+        else{
+            image(game.imgGameOver, 466, 350, 347, 20);
+            img=img_die;
+        }
         
         if(isCrouching() && isStoppingJumping()){
             stop_crouch();
@@ -100,7 +108,6 @@ class Dinosaur {
         h=86;
         activeCollisionBoxes = collisionBoxes;
         updateXYCollisionBoxes();
-        image(game.imgGameOver, 466, 350, 347, 20);
         noLoop();
     }
 

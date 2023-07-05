@@ -16,7 +16,7 @@ class Game {
     boolean collisionBoxesVisible=false;
     float last_bird_x = 1350;
     PImage sprite;
-    PImage imgGameOver;
+    PImage imgGameOver, imgGameOverNight;
 
     Game(boolean start){
         started=start;
@@ -134,6 +134,7 @@ class Game {
     }
     void load_game_assets(){
         imgGameOver =  sprite.get(655, 15, 191, 11);
+        imgGameOverNight =  sprite.get(655, 29, 191, 11);
     }
     void load_player_assets(){
         player.img_running_1 = sprite.get(848, 2, 44, 47);
@@ -141,15 +142,16 @@ class Game {
         player.img_running_3 = sprite.get(980, 2, 44, 47);
         player.img_crouching_1 = sprite.get(1112, 19, 59, 30); 
         player.img_crouching_2 = sprite.get(1171, 19, 59, 30);
-        player.img_die = sprite.get(1068, 2, 44, 47);; 
+        player.img_die = sprite.get(1068, 2, 44, 47);
+        player.img_die_night = sprite.get(1024, 2, 44, 47);
         player.imgs [0] = player.img_running_1; player.imgs[1] = player.img_running_2; player.imgs[2] = player.img_running_3;
         player.crouching_imgs [0] = player.img_crouching_1;  player.crouching_imgs [1] = player.img_crouching_2;
         player.img = player.img_running_1;
     }
 
     void load_ground_assets(){
-        ground.img = sprite.get(2, 54, 1200, 12);
-        ground.imgGameNotStarted = sprite.get(40, 54, 49, 12);
+        ground.img = sprite.get(2, 53, 1200, 13);
+        ground.imgGameNotStarted = sprite.get(40, 53, 49, 13);
     }
 
     void spawn_enemy(){

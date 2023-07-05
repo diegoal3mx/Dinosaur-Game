@@ -6,9 +6,9 @@ class Ground{
     Ground(){
         x=0;
         x2=-1280;
-        y=513;
+        y=512;
         w=1280;
-        h=23;
+        h=24;
     }
 
     void update(int speed){ 
