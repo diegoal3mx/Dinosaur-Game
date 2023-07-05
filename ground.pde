@@ -1,12 +1,12 @@
 class Ground{
 
     int x, x2, y, w, h;
-    PImage img;
+    PImage img, imgGameNotStarted;
 
     Ground(){
         x=0;
         x2=-1280;
-        y=512;
+        y=513;
         w=1280;
         h=23;
     }
@@ -20,5 +20,8 @@ class Ground{
     void display(){
         image(img, x, y, w, h);
         image(img, x-x2, y, w, h);
+    }
+    void displayGameNotStarted(){
+        image(imgGameNotStarted, 200, y, 80, h);
     }
 }

@@ -65,7 +65,7 @@ void keyPressed(){
             restartFromSpaceKeyEnabled=false;
         }
         else{
-            game.started = true;
+            game.player.jump();
         }
     }
 }

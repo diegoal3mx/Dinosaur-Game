@@ -87,16 +87,20 @@ class Game {
             }
         }
         else{
+            started=false;
+            player.doInitialJump();
             textSize(32);
             fill(32, 33, 36);
             text("Presiona la barra espaciadora para jugar",width/2-435,585);
-            started=false; 
         }
     }
 
     void display(){
         if(started){
             ground.display();
+        }
+        else{
+            ground.displayGameNotStarted();
         }
         for (Cloud cl: clouds){
             cl.display();
@@ -145,6 +149,7 @@ class Game {
 
     void load_ground_assets(){
         ground.img = sprite.get(2, 54, 1200, 12);
+        ground.imgGameNotStarted = sprite.get(40, 54, 49, 12);
     }
 
     void spawn_enemy(){
@@ -183,7 +188,7 @@ class Game {
 
         for (Iterator<Bird> iterator = birds.iterator(); iterator.hasNext();) {
             Bird b = iterator.next();
-            if(b.x<0) {
+            if(b.x+b.w<0) {
                 iterator.remove();
             }
         }
@@ -252,78 +257,83 @@ class Game {
     }
 
     void check_collisions_crouch(){
-        int e_y = 0;
-        loopCactus:
-        for (Cactus c: cactae){
-            if(!player.will_die){
-                for(CollisionBox cbc: c.collisionBoxes){
-                    if(player.x + player.w > cbc.x-speed && player.x < cbc.x-speed + cbc.w){
-                        player.will_die=true;
-                        e_y=cbc.y;
-                        break;
-                    }
-                }
-                if(player.will_die){
-                    if(c.type<3){
-                        if(c.x>280){
-                            player.stop_jump(); player.x+=10;
-                        }
-                        else if(c.x>235){
-                            player.stop_jump(); player.x+=6;
-                        }
-                        else if(c.x+c.w<240){
-                            player.stop_jump(); player.x-=3;
-                        }
-                        else{
-                            player.stop_jump(e_y+2);
-                        }
-                    }
-                    else{
-                        if(c.x>280){
-                            player.stop_jump(); player.x+=10;
-                        }
-                        else if(c.x>250){
-                            player.stop_jump(); player.x+=2;
-                        }
-                        else if(c.x+c.w<210){
-                            player.stop_jump(e_y+10);
-                        }
-                        else if(c.x+c.w<240){
-                            player.stop_jump();
-                        }
-                        else{
-                            player.stop_jump(e_y+5);
-                        }
-                    }
-                    break loopCactus;
-                } 
-                else{
-                    player.stop_jump();
-                }  
-            } 
+        if(score<30){
+            player.stop_jump();
         }
-        loopBirds:
-        for (Bird b: birds){
-            if(!player.will_die){
-                for(CollisionBox cbb: b.activeCollisionBoxes){
-                    if(player.x + player.w > cbb.x-speed && player.x < cbb.x-speed + cbb.w){
-                        if(player.last_jump_y < cbb.y  && player.x+player.w>last_bird_x ){
-                            player.will_die=true; 
-                            e_y=cbb.y+10; break;
+        else{
+            int e_y = 0;
+            loopCactus:
+            for (Cactus c: cactae){
+                if(!player.will_die){
+                    for(CollisionBox cbc: c.collisionBoxes){
+                        if(player.x + player.w > cbc.x-speed && player.x < cbc.x-speed + cbc.w){
+                            player.will_die=true;
+                            e_y=cbc.y;
+                            break;
                         }
                     }
-                }
-                if(player.will_die){
-                    if(b.x+b.w<240){
-                        player.stop_jump(e_y+40);
-                    }
+                    if(player.will_die){
+                        if(c.type<3){
+                            if(c.x>280){
+                                player.stop_jump(); player.x+=10;
+                            }
+                            else if(c.x>235){
+                                player.stop_jump(); player.x+=6;
+                            }
+                            else if(c.x+c.w<240){
+                                player.stop_jump(); player.x-=3;
+                            }
+                            else{
+                                player.stop_jump(e_y+2);
+                            }
+                        }
+                        else{
+                            if(c.x>280){
+                                player.stop_jump(); player.x+=10;
+                            }
+                            else if(c.x>250){
+                                player.stop_jump(); player.x+=2;
+                            }
+                            else if(c.x+c.w<210){
+                                player.stop_jump(e_y+10);
+                            }
+                            else if(c.x+c.w<240){
+                                player.stop_jump();
+                            }
+                            else{
+                                player.stop_jump(e_y+5);
+                            }
+                        }
+                        break loopCactus;
+                    } 
                     else{
-                        player.stop_jump(e_y);
-                    }
-                    break loopBirds;     
+                        player.stop_jump();
+                    }  
                 } 
-                else{
-                    player.stop_jump();
+            }
+            loopBirds:
+            for (Bird b: birds){
+                if(!player.will_die){
+                    for(CollisionBox cbb: b.activeCollisionBoxes){
+                        if(player.x + player.w > cbb.x-speed && player.x < cbb.x-speed + cbb.w){
+                            if(player.last_jump_y < cbb.y  && player.x+player.w>last_bird_x ){
+                                player.will_die=true; 
+                                e_y=cbb.y+10; break;
+                            }
+                        }
+                    }
+                    if(player.will_die){
+                        if(b.x+b.w<240){
+                            player.stop_jump(e_y+40);
+                        }
+                        else{
+                            player.stop_jump(e_y);
+                        }
+                        break loopBirds;     
+                    } 
+                    else{
+                        player.stop_jump();
+                    }
                 }
             }
         }

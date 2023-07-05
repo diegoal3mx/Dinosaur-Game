@@ -59,6 +59,22 @@ class Dinosaur {
         updateYCollisionBoxes();
     }
 
+    void doInitialJump(){
+        if(jumping){
+            y=448-(int)f(jump_stage);
+            jump_stage += 0.03;
+            last_jump_y = y;
+            img = img_running_1;
+         
+            if(jump_stage>1){
+                jumping = false;
+                jump_stage=0;
+                y=450;
+                game.started = true;
+            }
+        }
+    }
+
     void jump(){
         jumping = true;
     }
