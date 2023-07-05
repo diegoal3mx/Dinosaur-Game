@@ -37,10 +37,16 @@ void draw(){
     if(game.started){
         game.despawn_enemy();
         game.despawn_cloud();
+        if(game.night){
+            game.despawn_star();
+        }
         if(millis() - every_sec > 1000 && game.score>=30){
             every_sec = millis();
             game.spawn_enemy();
             game.spawn_cloud();
+            if(game.night){
+                game.spawn_star();
+            }
         }
     }
 

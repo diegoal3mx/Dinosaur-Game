@@ -12,10 +12,10 @@ class Dinosaur {
     ArrayList<CollisionBox> crouchCollisionBoxes = new ArrayList<CollisionBox>();
 
     Dinosaur(){
-        x=200;
-        y=450;
-        w=80;
-        h=86;
+        x = 200;
+        y = 450;
+        w = 80;
+        h = 86;
         jumping = false;
         living = true;
         jump_stage = 0;
@@ -38,20 +38,20 @@ class Dinosaur {
          
             if(jump_stage>1){
                 jumping = false;
-                jump_stage=0;
-                y=450;
+                jump_stage = 0;
+                y = 450;
             }
         }
         else if(crouching){  
             if(frameCount%10==0 && !will_die){
-                img=crouching_imgs[img_crouching_index ^= 1];
+                img = crouching_imgs[img_crouching_index ^= 1];
             }
         }
         else{ 
             if(frameCount%10==0){
                 img_index++;
                 if(img_index==3){
-                    img_index=0;
+                    img_index = 0;
                 }
                 img = imgs[img_index];
             }
@@ -68,8 +68,8 @@ class Dinosaur {
          
             if(jump_stage>1){
                 jumping = false;
-                jump_stage=0;
-                y=450;
+                jump_stage = 0;
+                y = 450;
                 game.started = true;
             }
         }
@@ -84,11 +84,11 @@ class Dinosaur {
 
         if(game.night){
             image(game.imgGameOverNight, 466, 350, 347, 20);
-            img=img_die_night;
+            img = img_die_night;
         }
         else{
             image(game.imgGameOver, 466, 350, 347, 20);
-            img=img_die;
+            img = img_die;
         }
         
         if(isCrouching() && isStoppingJumping()){
@@ -104,8 +104,8 @@ class Dinosaur {
         if(eh != null){
            y = eh-(h-5);
         }
-        w=80;
-        h=86;
+        w = 80;
+        h = 86;
         activeCollisionBoxes = collisionBoxes;
         updateXYCollisionBoxes();
         noLoop();
@@ -119,11 +119,11 @@ class Dinosaur {
            y = eh-(h-5);
         }
         else{
-            y=450;
+            y = 450;
         }
 
-        jumping=false;
-        jump_stage=0;
+        jumping = false;
+        jump_stage = 0;
         crouch();
     }
 
@@ -146,10 +146,10 @@ class Dinosaur {
     
     void updateCrouchingImage(){
         if(will_die){
-            img=img_die;
+            img = img_die;
         }
         else{
-            img=crouching_imgs[img_crouching_index];
+            img = crouching_imgs[img_crouching_index];
         }
     }
 

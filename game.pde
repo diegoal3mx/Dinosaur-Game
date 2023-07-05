@@ -7,6 +7,7 @@ class Game {
     ArrayList<Cactus> cactae;
     ArrayList<Bird> birds;
     ArrayList<Cloud> clouds;
+    ArrayList<Star> stars;
     int last_day_change = 1;
     boolean night=false;
     float speed = 12; 
@@ -27,6 +28,7 @@ class Game {
         cactae = new ArrayList<Cactus>();
         birds = new ArrayList<Bird>();
         clouds = new ArrayList<Cloud>();
+        stars = new ArrayList<Star>();
     }
 
     void update(){
@@ -70,6 +72,9 @@ class Game {
             if(night){
                 fill(255);
                 moon.update((int)(speed*0.234));
+                for (Star s: stars){
+                    s.update((int)(speed*0.234));
+                }
             }
             else{
                 fill(32, 33, 36);
@@ -105,6 +110,9 @@ class Game {
         if(started){
             ground.display();
             if(night){
+                for (Star s: stars){
+                    s.display();
+                }
                 moon.display();
             }
         }
@@ -113,7 +121,7 @@ class Game {
         }
         for (Cloud cl: clouds){
             cl.display();
-        } 
+        }
         for (Cactus c: cactae){
             c.display();
             if(collisionBoxesVisible){
@@ -180,12 +188,9 @@ class Game {
         }
     }
 
-    void despawn_cloud(){
-        for (Iterator<Cloud> iterator = clouds.iterator(); iterator.hasNext();) {
-            Cloud cl = iterator.next();
-            if(cl.x+cl.w<0) {
-                iterator.remove();
-            }
+    void spawn_star(){
+        if((int) random (2)==0){
+            stars.add(new Star());
         }
     }
 
@@ -200,6 +205,24 @@ class Game {
         for (Iterator<Bird> iterator = birds.iterator(); iterator.hasNext();) {
             Bird b = iterator.next();
             if(b.x+b.w<0) {
+                iterator.remove();
+            }
+        }
+    }
+
+    void despawn_cloud(){
+        for (Iterator<Cloud> iterator = clouds.iterator(); iterator.hasNext();) {
+            Cloud cl = iterator.next();
+            if(cl.x+cl.w<0) {
+                iterator.remove();
+            }
+        }
+    }
+
+    void despawn_star(){
+        for (Iterator<Star> iterator = stars.iterator(); iterator.hasNext();) {
+            Star s = iterator.next();
+            if(s.x+s.w<0) {
                 iterator.remove();
             }
         }

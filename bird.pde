@@ -9,9 +9,9 @@ class Bird{
     ArrayList<CollisionBox> wingDownCollisionBoxes = new ArrayList<CollisionBox>();
 
     Bird(){
-        x=1350;
-        w= 84;
-        h= 75;
+        x = 1350;
+        w = 84;
+        h = 75;
         img_index = 0;
         img_wing_down = game.sprite.get(134, 2, 46, 40);
         img_wing_up = game.sprite.get(180, 2, 46, 40);

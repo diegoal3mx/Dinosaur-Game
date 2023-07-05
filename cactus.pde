@@ -5,15 +5,15 @@ class Cactus{
     ArrayList<CollisionBox> collisionBoxes = new ArrayList<CollisionBox>();
 
     Cactus(){
-        x=1350;
+        x = 1350;
         type = (int)random(6);
 
         if(type < 3){
-            h=66;
-            y=470;
+            h = 66;
+            y = 470;
         }else{
-            h=96;
-            y=444;
+            h = 96;
+            y = 444;
         }
         switch (type) {
             case 0:
