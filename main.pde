@@ -24,8 +24,12 @@ void restart(){
 }
 
 void draw(){
-
-    background(255);
+    if(game.night){
+        background(32,33,36);
+    }
+    else{
+        background(255);
+    }
     game.update();
     game.display(); 
 

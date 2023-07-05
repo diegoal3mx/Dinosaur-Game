@@ -6,6 +6,8 @@ class Game {
     ArrayList<Cactus> cactae;
     ArrayList<Bird> birds;
     ArrayList<Cloud> clouds;
+    int last_day_change = 1;
+    boolean night=false;
     float speed = 12; 
     float maxSpeed=20;
     float score=0;
@@ -26,6 +28,10 @@ class Game {
 
     void update(){
         if(player.isAlive() && started){
+            if((int)score%1000==0 && (int)score>last_day_change){
+                last_day_change = (int)score;
+                night=!night;
+            }
             score += 1*(speed/70);
             ground.update((int)speed);
             player.update();
@@ -35,7 +41,7 @@ class Game {
             }
 
             for (Cloud cl: clouds){
-                cl.update((int)speed);
+                cl.update((int)(speed*0.5));
             }
 
             for (Cactus c: cactae){
@@ -55,7 +61,12 @@ class Game {
                 }
             }
 
-            fill(32, 33, 36); 
+            if(night){
+                fill(255);
+            }
+            else{
+                fill(32, 33, 36);
+            }
             text((int)score,width/2+200,50);
             text("Score",width/2+100,50);
 
@@ -83,16 +94,12 @@ class Game {
     }
 
     void display(){
-        strokeWeight(2);
-        stroke(255);
-        line(0, 450 + 86, width, 450 + 86);
-        noStroke();
-
-        ground.display();
+        if(started){
+            ground.display();
+        }
         for (Cloud cl: clouds){
             cl.display();
-        }
-        player.display();
+        } 
         for (Cactus c: cactae){
             c.display();
             if(collisionBoxesVisible){
@@ -101,19 +108,20 @@ class Game {
                 }
             }
         }
-        if(collisionBoxesVisible){
-            for (CollisionBox cbp: player.activeCollisionBoxes){
-                cbp.display();
-            }
-        }
         for (Bird b: birds){
             b.display();
-            if(collisionBoxesVisible){  
+            if(collisionBoxesVisible){
                 for (CollisionBox cbb: b.activeCollisionBoxes){
                     cbb.display();
                 }
             }
-        }      
+        }
+        player.display();
+        if(collisionBoxesVisible){
+            for (CollisionBox cbp: player.activeCollisionBoxes){
+                cbp.display();
+            }
+        } 
     }
 
     void load_game_sprite(){
@@ -147,7 +155,7 @@ class Game {
     }
 
     void spawn_cloud(){
-        if((int) random (1)==0){
+        if((int) random (1.5)==0){
             clouds.add(new Cloud());
         }
     }
