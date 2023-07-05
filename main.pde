@@ -11,6 +11,7 @@ void setup(){
 
 void start(){
     game.load_game_sprite();
+    game.load_game_assets();
     game.load_ground_assets();
     game.load_player_assets();
     loop();

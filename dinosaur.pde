@@ -84,6 +84,7 @@ class Dinosaur {
         h=86;
         activeCollisionBoxes = collisionBoxes;
         updateXYCollisionBoxes();
+        image(game.imgGameOver, 466, 350, 347, 20);
         noLoop();
     }
 

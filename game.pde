@@ -16,6 +16,7 @@ class Game {
     boolean collisionBoxesVisible=false;
     float last_bird_x = 1350;
     PImage sprite;
+    PImage imgGameOver;
 
     Game(boolean start){
         started=start;
@@ -126,6 +127,9 @@ class Game {
 
     void load_game_sprite(){
         sprite =  loadImage("imgs/dinosaur-sprite.png");
+    }
+    void load_game_assets(){
+        imgGameOver =  sprite.get(655, 15, 191, 11);
     }
     void load_player_assets(){
         player.img_running_1 = sprite.get(848, 2, 44, 47);
