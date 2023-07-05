@@ -22,16 +22,16 @@ class Bird{
         switch (type) {
             case 0:
                 y = 385;
-                break;
+            break;
             case 1:
                 y = 439;
-                break;
+            break;
             case 2:
-               y = (int) random (100,390);
-                break;
+                y = (int) random (100,390);
+            break;
             case 3:
-             y = (int) random (100,390);
-                 break;
+                y = (int) random (100,390);
+            break;
         }
 
         createWingUpCollisionBoxes();

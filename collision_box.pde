@@ -38,12 +38,12 @@ class CollisionBox{
                 boxes.add(new CollisionBox(1436,478,11,34));
             break;
             case 3:
-                boxes.add(new CollisionBox(1351,468,15,37));
+                boxes.add(new CollisionBox(1351,469,15,36));
                 boxes.add(new CollisionBox(1365,446,16,90));
                 boxes.add(new CollisionBox(1380,465,14,39));
             break;
             case 4:
-                boxes.add(new CollisionBox(1351,468,15,37));
+                boxes.add(new CollisionBox(1351,469,15,36));
                 boxes.add(new CollisionBox(1365,446,16,90));
                 boxes.add(new CollisionBox(1380,465,18,37));
 
@@ -52,7 +52,7 @@ class CollisionBox{
                 boxes.add(new CollisionBox(1429,465,15,39));
             break;
             case 5:
-                boxes.add(new CollisionBox(1351,468,16,39));
+                boxes.add(new CollisionBox(1351,469,16,38));
                 boxes.add(new CollisionBox(1366,446,16,90));
                 boxes.add(new CollisionBox(1381,466,17,37));
 
@@ -69,13 +69,13 @@ class CollisionBox{
                 boxes.add(new CollisionBox(1479,467,15,37));
             break;
             case 6:
-                boxes.add(new CollisionBox(202,480,11,30));
+                boxes.add(new CollisionBox(203,480,10,23));
                 boxes.add(new CollisionBox(212,492,44,10));
                 boxes.add(new CollisionBox(212,502,40,8));
                 boxes.add(new CollisionBox(216,510,29,8));
                 boxes.add(new CollisionBox(220,517,26,7));
-                boxes.add(new CollisionBox(220,522,11,11));
-                boxes.add(new CollisionBox(237,522,11,11));
+                boxes.add(new CollisionBox(220,522,11,10));
+                boxes.add(new CollisionBox(237,522,11,10));
                 boxes.add(new CollisionBox(228,480,35,17));
                 boxes.add(new CollisionBox(239,454,37,28));
             break;

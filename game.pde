@@ -2,6 +2,7 @@ import java.util.Iterator;
 
 class Game {
     Ground ground;
+    Moon moon;
     Dinosaur player;
     ArrayList<Cactus> cactae;
     ArrayList<Bird> birds;
@@ -21,6 +22,7 @@ class Game {
     Game(boolean start){
         started=start;
         ground = new Ground();
+        moon = new Moon();
         player = new Dinosaur();
         cactae = new ArrayList<Cactus>();
         birds = new ArrayList<Bird>();
@@ -32,6 +34,9 @@ class Game {
             if((int)score%1000==0 && (int)score>last_day_change){
                 last_day_change = (int)score;
                 night=!night;
+                if(night){
+                    moon.changePhase();
+                }
             }
             score += 1*(speed/70);
             ground.update((int)speed);
@@ -64,6 +69,7 @@ class Game {
 
             if(night){
                 fill(255);
+                moon.update((int)(speed*0.234));
             }
             else{
                 fill(32, 33, 36);
@@ -98,6 +104,9 @@ class Game {
     void display(){
         if(started){
             ground.display();
+            if(night){
+                moon.display();
+            }
         }
         else{
             ground.displayGameNotStarted();
