@@ -8,15 +8,16 @@ class Game {
     ArrayList<Bird> birds;
     ArrayList<Cloud> clouds;
     ArrayList<Star> stars;
-    int last_day_change = 1;
-    boolean night=false;
-    float speed = 12; 
-    float maxSpeed=20;
-    float score=0;
-    int highScore=0;
-    boolean started=false;
-    boolean collisionBoxesVisible=false;
     float last_bird_x = 1350;
+    float speed = 12; 
+    float maxSpeed = 20;
+    float score = 0;
+    int highScore = 0;
+    int last_day_change = 1;
+    int window_width = 1280;
+    boolean night = false;
+    boolean started = false;
+    boolean collisionBoxesVisible = false;
     PImage sprite;
     PImage imgGameOver, imgGameOverNight;
 
@@ -102,7 +103,7 @@ class Game {
             player.doInitialJump();
             textSize(32);
             fill(32, 33, 36);
-            text("Presiona la barra espaciadora para jugar",width/2-435,585);
+            text("Presiona la barra espaciadora para jugar",205,585);
         }
     }
 

@@ -4,7 +4,7 @@ class Star{
     PImage img;
 
     Star(){
-        x = 1350;
+        x = game.window_width+70;
         y = (int) random (100,230);
         w = 16;
         h = 16;

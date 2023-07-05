@@ -3,13 +3,20 @@ Game game = new Game(false);
 int every_sec = 0;
 boolean restartFromSpaceKeyEnabled=true;
 
+void settings() {
+  size((int)(displayWidth*(2.0/3.0)),720);
+}
+
 void setup(){
     frameRate(60);
-    size (1280,720);
     start();
 }
 
 void start(){
+    game.ground.w = width;
+    game.ground.x2 = 0-width;
+    game.moon.x = width+70;
+    game.window_width = width;
     game.load_game_sprite();
     game.load_game_assets();
     game.load_ground_assets();

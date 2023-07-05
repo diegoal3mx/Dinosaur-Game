@@ -83,11 +83,11 @@ class Dinosaur {
         living = false;
 
         if(game.night){
-            image(game.imgGameOverNight, 466, 350, 347, 20);
+            image(game.imgGameOverNight, ((game.window_width/2)-174), 350, 347, 20);
             img = img_die_night;
         }
         else{
-            image(game.imgGameOver, 466, 350, 347, 20);
+            image(game.imgGameOver, ((game.window_width/2)-174), 350, 347, 20);
             img = img_die;
         }
         

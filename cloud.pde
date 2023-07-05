@@ -4,10 +4,10 @@ class Cloud{
     PImage img;
 
     Cloud(){
-        x=1350;
+        x = game.window_width+70;
         y = (int) random (50,300);
-        w=84;
-        h=24;
+        w = 84;
+        h = 24;
         img = game.sprite.get(86, 2, 46, 13);
     }
 

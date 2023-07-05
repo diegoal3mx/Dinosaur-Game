@@ -5,7 +5,7 @@ class Cactus{
     ArrayList<CollisionBox> collisionBoxes = new ArrayList<CollisionBox>();
 
     Cactus(){
-        x = 1350;
+        x = game.window_width+70;
         type = (int)random(6);
 
         if(type < 3){
