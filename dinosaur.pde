@@ -8,7 +8,7 @@ class Dinosaur {
     int [] xPositionOfCollisionBoxes = {2,12,12,16,20,20,37,28,39};
     int [] yPositionOfCollisionBoxes = {30,42,52,60,67,72,72,30,4};
     ArrayList<CollisionBox> collisionBoxes = new ArrayList<CollisionBox>();
-    ArrayList<CollisionBox> activeCollisionBoxes = new ArrayList<CollisionBox>();
+    ArrayList<CollisionBox> activeCollisionBoxes;
     ArrayList<CollisionBox> crouchCollisionBoxes = new ArrayList<CollisionBox>();
 
     Dinosaur(){

@@ -3,10 +3,10 @@ class CollisionBox{
     int x, y, w, h;
     ArrayList<CollisionBox> boxes;
 
-    CollisionBox(int cactusType, int... bird_y){
+    CollisionBox(int entityType, int... bird_y){
 
         Integer by = (bird_y.length >= 1) ? bird_y[0] : null;
-        int type = cactusType;
+        int type = entityType;
         boxes = new ArrayList<CollisionBox>();
 
         switch (type) {

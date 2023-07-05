@@ -4,7 +4,7 @@ class Bird{
     PImage img_wing_down, img_wing_up;
     PImage [] imgs = new PImage[2];
     ArrayList<CollisionBox>[] collisionBoxes = (ArrayList<CollisionBox>[]) new ArrayList[2];
-    ArrayList<CollisionBox> activeCollisionBoxes = new ArrayList<CollisionBox>();
+    ArrayList<CollisionBox> activeCollisionBoxes;
     ArrayList<CollisionBox> wingUpCollisionBoxes = new ArrayList<CollisionBox>();
     ArrayList<CollisionBox> wingDownCollisionBoxes = new ArrayList<CollisionBox>();
 
