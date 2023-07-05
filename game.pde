@@ -5,6 +5,7 @@ class Game {
     Dinosaur player;
     ArrayList<Cactus> cactae;
     ArrayList<Bird> birds;
+    ArrayList<Cloud> clouds;
     float speed = 12; 
     float maxSpeed=20;
     float score=0;
@@ -20,6 +21,7 @@ class Game {
         player = new Dinosaur();
         cactae = new ArrayList<Cactus>();
         birds = new ArrayList<Bird>();
+        clouds = new ArrayList<Cloud>();
     }
 
     void update(){
@@ -30,6 +32,10 @@ class Game {
 
             if(player.will_die){
                 player.die();
+            }
+
+            for (Cloud cl: clouds){
+                cl.update((int)speed);
             }
 
             for (Cactus c: cactae){
@@ -79,12 +85,14 @@ class Game {
     void display(){
         strokeWeight(2);
         stroke(255);
-       
         line(0, 450 + 86, width, 450 + 86);
         noStroke();
-        ground.display();
-        player.display();
 
+        ground.display();
+        for (Cloud cl: clouds){
+            cl.display();
+        }
+        player.display();
         for (Cactus c: cactae){
             c.display();
             if(collisionBoxesVisible){
@@ -129,10 +137,27 @@ class Game {
 
     void spawn_enemy(){
         if((int) random (10)==0){
-            birds.add(new Bird());
+            if(score>450){
+                birds.add(new Bird());
+            }
         }
         else{
             cactae.add(new Cactus());
+        }
+    }
+
+    void spawn_cloud(){
+        if((int) random (1)==0){
+            clouds.add(new Cloud());
+        }
+    }
+
+    void despawn_cloud(){
+        for (Iterator<Cloud> iterator = clouds.iterator(); iterator.hasNext();) {
+            Cloud cl = iterator.next();
+            if(cl.x+cl.w<0) {
+                iterator.remove();
+            }
         }
     }
 

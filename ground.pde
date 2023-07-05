@@ -1,8 +1,7 @@
 class Ground{
 
-    int x, y, w, h;
-    int x2;
-    PImage sprite,img;
+    int x, x2, y, w, h;
+    PImage img;
 
     Ground(){
         x=0;
