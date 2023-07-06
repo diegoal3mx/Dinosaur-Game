@@ -9,7 +9,8 @@ class Bird{
     ArrayList<CollisionBox> wingDownCollisionBoxes = new ArrayList<CollisionBox>();
 
     Bird(){
-        x = game.window_width+(int) random (40,80);
+        int randomDistance = (int) random (40,80);
+        x = game.window_width+randomDistance;
         w = 84;
         h = 75;
         img_index = 0;
@@ -34,8 +35,8 @@ class Bird{
             break;
         }
 
-        createWingUpCollisionBoxes();
-        createWingDownCollisionBoxes();
+        createWingUpCollisionBoxes(randomDistance-70);
+        createWingDownCollisionBoxes(randomDistance-70);
         collisionBoxes[0]=wingDownCollisionBoxes;collisionBoxes[1]=wingUpCollisionBoxes;
         activeCollisionBoxes=collisionBoxes[0];
     }
@@ -49,14 +50,14 @@ class Bird{
         }
     }
 
-    void createWingDownCollisionBoxes(){
-        for (CollisionBox b : new CollisionBox(8,y).getCollisionBoxes()){
+    void createWingDownCollisionBoxes(int distanceOffset){
+        for (CollisionBox b : new CollisionBox(8,distanceOffset,y).getCollisionBoxes()){
             wingDownCollisionBoxes.add(b);
         } 
     }
 
-    void createWingUpCollisionBoxes(){
-        for (CollisionBox b : new CollisionBox(9,y).getCollisionBoxes()){
+    void createWingUpCollisionBoxes(int distanceOffset){
+        for (CollisionBox b : new CollisionBox(9,distanceOffset,y).getCollisionBoxes()){
             wingUpCollisionBoxes.add(b);
         } 
     }

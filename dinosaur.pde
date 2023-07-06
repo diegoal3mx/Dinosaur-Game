@@ -173,13 +173,13 @@ class Dinosaur {
     }
     
     void createCollisionBoxes(){
-        for (CollisionBox b : new CollisionBox(6).getCollisionBoxes()){
+        for (CollisionBox b : new CollisionBox(6,0).getCollisionBoxes()){
             collisionBoxes.add(b);
         } 
     }
 
     void createCrouchCollisionBoxes(){
-        for (CollisionBox b : new CollisionBox(7).getCollisionBoxes()){
+        for (CollisionBox b : new CollisionBox(7,0).getCollisionBoxes()){
             crouchCollisionBoxes.add(b);
         } 
     }

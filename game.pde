@@ -72,9 +72,9 @@ class Game {
 
             if(night){
                 fill(255);
-                moon.update((speed*0.0234));
+                moon.update((speed*0.021));
                 for (Star s: stars){
-                    s.update((speed*0.0234));
+                    s.update((speed*0.021));
                 }
             }
             else{
@@ -91,7 +91,7 @@ class Game {
             text("High Score",width/2+280,50);
 
             if(!player.will_die){
-                check_collisions();
+                //check_collisions();
             }
 
             if(speed<maxSpeed){
@@ -203,7 +203,7 @@ class Game {
     }
 
     void spawn_star(){
-        if((int) random (2)==0){
+        if((int) random (10)==0){
             stars.add(new Star());
         }
     }

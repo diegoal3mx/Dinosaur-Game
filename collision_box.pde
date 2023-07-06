@@ -3,12 +3,12 @@ class CollisionBox{
     int x, y, w, h;
     ArrayList<CollisionBox> boxes;
 
-    CollisionBox(int entityType, int... bird_y){
+    CollisionBox(int entityType, int distanceOffset, int... bird_y){
 
         Integer by = (bird_y.length >= 1) ? bird_y[0] : null;
         int type = entityType;
         if(type!=6 && type!=7){
-            x = game.window_width;
+            x = game.window_width+distanceOffset;
         }
         boxes = new ArrayList<CollisionBox>();
 

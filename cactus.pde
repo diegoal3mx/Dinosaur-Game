@@ -5,7 +5,8 @@ class Cactus{
     ArrayList<CollisionBox> collisionBoxes = new ArrayList<CollisionBox>();
 
     Cactus(){
-        x = game.window_width+(int) random (40,80);
+        int randomDistance = (int) random (40,80);
+        x = game.window_width+randomDistance;
         type = (int)random(6);
 
         if(type < 3){
@@ -41,14 +42,14 @@ class Cactus{
                 img = game.sprite.get(407, 2, 75, 50);
             break;
         }
-        createCollisionBoxes();
+        createCollisionBoxes(randomDistance-70);
     }
 
     void update(int speed){
         x -= speed;
     }
-    void createCollisionBoxes(){
-        for (CollisionBox b : new CollisionBox(type).getCollisionBoxes()){
+    void createCollisionBoxes(int distanceOffset){
+        for (CollisionBox b : new CollisionBox(type,distanceOffset).getCollisionBoxes()){
             collisionBoxes.add(b);
         }     
     }
