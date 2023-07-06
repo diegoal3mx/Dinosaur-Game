@@ -9,7 +9,7 @@ class Bird{
     ArrayList<CollisionBox> wingDownCollisionBoxes = new ArrayList<CollisionBox>();
 
     Bird(){
-        x = game.window_width+70;
+        x = game.window_width+(int) random (40,80);
         w = 84;
         h = 75;
         img_index = 0;

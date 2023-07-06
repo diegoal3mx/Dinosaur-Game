@@ -5,7 +5,7 @@ class Cloud{
 
     Cloud(){
         x = game.window_width+70;
-        y = (int) random (50,300);
+        y = (int) random (55,300);
         w = 84;
         h = 24;
         img = game.sprite.get(86, 2, 46, 13);

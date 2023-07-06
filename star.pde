@@ -6,7 +6,7 @@ class Star{
 
     Star(){
         x = game.window_width+70;
-        y = (int) random (105,230);
+        y = (int) random (100,230);
         w = 16;
         h = 16;
         type = (int)random(3);
