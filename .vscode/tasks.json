@@ -17,7 +17,7 @@
       },
       "args": [
 		"--force",
-		"--sketch=${workspaceRoot}",
+		"--sketch=${workspaceRoot}/game",
 		"--output=${workspaceRoot}/out",
 		"--run"
 	  ],
@@ -26,7 +26,7 @@
         "args": [
           "--force",
           {
-            "value": "--sketch=${workspaceRoot}",
+            "value": "--sketch=${workspaceRoot}\\game",
             "quoting": "strong"
           },
           {

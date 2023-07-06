@@ -161,7 +161,7 @@ class Game {
         moon.x = w+70;
     }
     void load_game_sprite(){
-        sprite =  loadImage("imgs/dinosaur-sprite.png");
+        sprite =  loadImage("../imgs/dinosaur-sprite.png");
     }
     void load_game_assets(){
         imgGameOver =  sprite.get(655, 15, 191, 11);
