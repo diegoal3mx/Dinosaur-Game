@@ -1,6 +1,7 @@
 class Moon{
 
-    int x, y, w, h, phase;
+    float x;
+    int y, w, h, phase;
     PImage img;
 
     Moon(){
@@ -11,11 +12,11 @@ class Moon{
         phase = 0;
     }
 
-    void update(int speed){
+    void update(float speed){
         x -= speed;  
     }
     void changePhase(){
-        x = 1350;
+        x = game.window_width+70;
         switch (phase) {
             case 0:
                 img = game.sprite.get(484, 2, 20, 40);

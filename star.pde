@@ -1,11 +1,12 @@
 class Star{
 
-    int x, y, w, h, type;
+    float x;
+    int y, w, h, type;
     PImage img;
 
     Star(){
         x = game.window_width+70;
-        y = (int) random (100,230);
+        y = (int) random (105,230);
         w = 16;
         h = 16;
         type = (int)random(3);
@@ -22,7 +23,7 @@ class Star{
         }
     }
 
-    void update(int speed){ 
+    void update(float speed){ 
         x -= speed;  
     }
     void display(){

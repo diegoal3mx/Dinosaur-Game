@@ -13,14 +13,7 @@ void setup(){
 }
 
 void start(){
-    game.ground.w = width;
-    game.ground.x2 = 0-width;
-    game.moon.x = width+70;
-    game.window_width = width;
-    game.load_game_sprite();
-    game.load_game_assets();
-    game.load_ground_assets();
-    game.load_player_assets();
+    game.load_game(width);
     loop();
 }
 

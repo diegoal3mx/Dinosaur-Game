@@ -22,7 +22,7 @@ class Game {
     PImage imgGameOver, imgGameOverNight;
 
     Game(boolean start){
-        started=start;
+        started = start;
         ground = new Ground();
         moon = new Moon();
         player = new Dinosaur();
@@ -72,9 +72,9 @@ class Game {
 
             if(night){
                 fill(255);
-                moon.update((int)(speed*0.234));
+                moon.update((speed*0.0234));
                 for (Star s: stars){
-                    s.update((int)(speed*0.234));
+                    s.update((speed*0.0234));
                 }
             }
             else{
@@ -147,6 +147,19 @@ class Game {
         } 
     }
 
+    void load_game(int w){
+        set_window_width(w);
+        load_game_sprite();
+        load_game_assets();
+        load_ground_assets();
+        load_player_assets();
+    }
+    void set_window_width(int w){
+        window_width = w;
+        ground.w = w;
+        ground.x2 = 0-w;
+        moon.x = w+70;
+    }
     void load_game_sprite(){
         sprite =  loadImage("imgs/dinosaur-sprite.png");
     }
