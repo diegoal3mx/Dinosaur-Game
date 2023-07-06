@@ -44,7 +44,7 @@
 
 ## About The Project
 
-[![Dinosaur Game Screen Shot][product-screenshot]](https://github.com/diegoal3mx/Dinosaur_Game/blob/main/imgs/Dinosaur_Game-Screenshot.gif)
+![Dinosaur Game Screen Shot](imgs/Dinosaur_Game-Screenshot.gif)
 
 Processing version of Google Chrome's offline t-rex runner game, with infinite gameplay & cactuses and birds to avoid!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
