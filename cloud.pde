@@ -11,8 +11,8 @@ class Cloud{
         img = game.sprite.get(86, 2, 46, 13);
     }
 
-    void update(int speed){ 
-        x -= speed;  
+    void update(int speed){
+        x -= speed;
     }
     void display(){
         image(img, x, y, w, h);

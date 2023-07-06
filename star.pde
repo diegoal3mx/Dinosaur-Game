@@ -23,8 +23,8 @@ class Star{
         }
     }
 
-    void update(float speed){ 
-        x -= speed;  
+    void update(float speed){
+        x -= speed;
     }
     void display(){
         image(img, x, y, w, h);

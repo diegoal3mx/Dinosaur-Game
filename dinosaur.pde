@@ -42,7 +42,7 @@ class Dinosaur {
                 y = 450;
             }
         }
-        else if(crouching){  
+        else if(crouching){
             if(frameCount%10==0 && !will_die){
                 img = crouching_imgs[img_crouching_index ^= 1];
             }

@@ -12,7 +12,7 @@ class Ground{
     }
 
     void update(int speed){
-        x -= speed;  
+        x -= speed;
         if(x<x2){
             x=0;
         }

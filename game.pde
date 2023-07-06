@@ -91,7 +91,7 @@ class Game {
             text("High Score",width/2+280,50);
 
             if(!player.will_die){
-                //check_collisions();
+                check_collisions();
             }
 
             if(speed<maxSpeed){
@@ -208,6 +208,14 @@ class Game {
         }
     }
 
+    void spawn_entities(){
+        spawn_enemy();
+        spawn_cloud();
+        if(night){
+            spawn_star();
+        }
+    }
+
     void despawn_enemy(){
         for (Iterator<Cactus> iterator = cactae.iterator(); iterator.hasNext();) {
             Cactus c = iterator.next();
@@ -239,6 +247,14 @@ class Game {
             if(s.x+s.w<0) {
                 iterator.remove();
             }
+        }
+    }
+
+    void despawn_entities(){
+        despawn_enemy();
+        despawn_cloud();
+        if(night){
+            despawn_star();
         }
     }
 
@@ -365,7 +381,7 @@ class Game {
                     for(CollisionBox cbb: b.activeCollisionBoxes){
                         if(player.x + player.w > cbb.x-speed && player.x < cbb.x-speed + cbb.w){
                             if(player.last_jump_y < cbb.y  && player.x+player.w>last_bird_x ){
-                                player.will_die=true; 
+                                player.will_die=true;
                                 e_y=cbb.y+10; break;
                             }
                         }
@@ -377,7 +393,7 @@ class Game {
                         else{
                             player.stop_jump(e_y);
                         }
-                        break loopBirds;     
+                        break loopBirds;
                     } 
                     else{
                         player.stop_jump();

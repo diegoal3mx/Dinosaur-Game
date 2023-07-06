@@ -4,7 +4,7 @@ int every_sec = 0;
 boolean restartFromSpaceKeyEnabled=true;
 
 void settings() {
-  size((int)(displayWidth*(2.0/3.0)),720);
+  size((int)(displayWidth*(2.0/3.0)),(int)(displayHeight*(2.0/3.0)));
 }
 
 void setup(){
@@ -18,7 +18,7 @@ void start(){
 }
 
 void restart(){
-    int tempScore=game.getHighScore();
+    int tempScore = game.getHighScore();
     game = new Game(true);
     game.highScore=tempScore;
     start();
@@ -35,18 +35,10 @@ void draw(){
     game.display(); 
 
     if(game.started){
-        game.despawn_enemy();
-        game.despawn_cloud();
-        if(game.night){
-            game.despawn_star();
-        }
+        game.despawn_entities();
         if(millis() - every_sec > 1000 && game.score>=30){
             every_sec = millis();
-            game.spawn_enemy();
-            game.spawn_cloud();
-            if(game.night){
-                game.spawn_star();
-            }
+            game.spawn_entities();
         }
     }
 

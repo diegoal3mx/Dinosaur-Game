@@ -13,7 +13,7 @@ class Moon{
     }
 
     void update(float speed){
-        x -= speed;  
+        x -= speed;
     }
     void changePhase(){
         x = game.window_width+70;
