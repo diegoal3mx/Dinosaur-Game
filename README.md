@@ -32,6 +32,14 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
+    <li>
+      <a href="#playing-the-game">Playing the game</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#how-to-play">How to play</a></li>
+        <li><a href="#controls">Controls</a></li>
+      </ul>
+    </li>
      <li><a href="#disclaimer">Disclaimer</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -69,7 +77,7 @@ Processing version of Google Chrome's offline t-rex runner game, with infinite g
 2. Open "game.pde" in Processing
 
 3. Click the "Run" button
-![Dinosaur Game_How_To](imgs/Dinosaur_Game-How-To.png)
+![Dinosaur Game_How_To](imgs/Dinosaur_Game-How-To-Play.png)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
