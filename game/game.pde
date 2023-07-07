@@ -17,12 +17,16 @@ class Game {
     int window_width = 1280;
     boolean night = false;
     boolean started = false;
+    boolean debug = false;
     boolean collisionBoxesVisible = false;
+    boolean fpsVisible = false;
     PImage sprite;
     PImage imgGameOver, imgGameOverNight;
 
-    Game(boolean start){
+    Game(boolean start, boolean debugged){
         started = start;
+        debug = debugged;
+        set_debug();
         ground = new Ground();
         moon = new Moon();
         player = new Dinosaur();
@@ -80,15 +84,15 @@ class Game {
             else{
                 fill(32, 33, 36);
             }
-            text((int)score,width/2+200,50);
             text("Score",width/2+100,50);
+            text((int)score,width/2+200,50);    
 
             if(highScore < score){
                 highScore = (int)score;
             }
-    
-            text(highScore,width/2+460,50);
+
             text("High Score",width/2+280,50);
+            text(highScore,width/2+460,50);
 
             if(!player.will_die){
                 check_collisions();
@@ -104,6 +108,11 @@ class Game {
             textSize(32);
             fill(32, 33, 36);
             text("Presiona la barra espaciadora para jugar",205,585);
+        }
+
+        if(fpsVisible){
+            text("Fps",50,50);
+            text(frameRate,100,50);
         }
     }
 
@@ -280,7 +289,7 @@ class Game {
                         else{
                             player.stop_jumping = false;
                             if(c.type<3){
-                                if(cbc.h!=30){
+                                if(cbc.h!=29){
                                     player.die(); break loopCollisions;
                                 }
                             }
@@ -407,12 +416,21 @@ class Game {
         return highScore;
     }
 
+    void toggle_debug(){
+        debug = !debug;
+        set_debug();
+    }
+
+    void set_debug(){
+        collisionBoxesVisible = debug;
+        fpsVisible = debug;
+    }
+
     void keyPressed(String key){
         if (key == "UP" && player.isAlive() && started){
             if (!player.isCrouching()){
-                 player.jump();
+                player.jump();
             }
-           
         }
         else if (key == "DOWN" && player.isAlive() && started){
             if(player.isJumping()){
@@ -421,6 +439,9 @@ class Game {
             }else{
                 player.crouch();
             }
+        }
+        else if (key == "D"){
+            toggle_debug();
         }
     }
 

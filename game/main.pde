@@ -1,4 +1,4 @@
-Game game = new Game(false);
+Game game = new Game(false, false);
 
 int every_sec = 0;
 boolean restartFromSpaceKeyEnabled=true;
@@ -19,7 +19,8 @@ void start(){
 
 void restart(){
     int tempScore = game.getHighScore();
-    game = new Game(true);
+    boolean tempDebug = game.debug;
+    game = new Game(true, tempDebug);
     game.highScore=tempScore;
     start();
 }
@@ -65,6 +66,9 @@ void keyPressed(){
         else{
             game.player.jump();
         }
+    }
+    else if (key == 'D' || key == 'd'){
+        game.keyPressed("D");
     }
 }
 
