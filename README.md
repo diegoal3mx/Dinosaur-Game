@@ -86,6 +86,7 @@ Processing version of Google Chrome's offline t-rex runner game, with infinite g
 * **Start: `SPACE`** <br/>
 * **Jump: `ARROW UP` , `SPACE`** <br/>
 * **Crouch: `ARROW DOWN`** <br/>
+* **Debug: `D`** <br/>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
