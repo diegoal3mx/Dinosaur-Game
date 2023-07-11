@@ -32,15 +32,16 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
+    <li><a href="#playing-the-game-online">Playing the game online</a></li>
     <li>
-      <a href="#playing-the-game">Playing the game</a>
+      <a href="#playing-the-game-locally">Playing the game locally</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#how-to-play">How to play</a></li>
         <li><a href="#controls">Controls</a></li>
       </ul>
     </li>
-     <li><a href="#disclaimer">Disclaimer</a></li>
+    <li><a href="#disclaimer">Disclaimer</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -61,7 +62,11 @@ Processing version of Google Chrome's offline t-rex runner game, with infinite g
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Playing the game
+## Playing the game online
+
+* A [P5.js version](https://github.com/diegoal3mx/Dinosaur-Game-P5js) of the game can be played [here](https://diegoal3mx.github.io/Dinosaur-Game-P5js/)
+
+## Playing the game locally
 
 ### Prerequisites
 
